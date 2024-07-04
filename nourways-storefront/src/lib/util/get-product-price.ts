@@ -36,15 +36,15 @@ export function getProductPrice({
     })
 
     return {
-      calculated_price_number: cheapestVariant.calculated_price,
+      calculated_price_number: cheapestVariant.calculated_price / 10,
       calculated_price: formatAmount({
-        amount: cheapestVariant.calculated_price,
+        amount: cheapestVariant.calculated_price / 10,
         region,
         includeTaxes: false,
       }),
-      original_price_number: cheapestVariant.original_price,
+      original_price_number: cheapestVariant.original_price / 10,
       original_price: formatAmount({
-        amount: cheapestVariant.original_price,
+        amount: cheapestVariant.original_price / 10,
         region,
         includeTaxes: false,
       }),
@@ -70,15 +70,15 @@ export function getProductPrice({
     }
 
     return {
-      calculated_price_number: variant.calculated_price,
+      calculated_price_number: variant.calculated_price / 10,
       calculated_price: formatAmount({
-        amount: variant.calculated_price,
+        amount: variant.calculated_price / 10,
         region,
         includeTaxes: false,
       }),
-      original_price_number: variant.original_price,
+      original_price_number: variant.original_price / 10,
       original_price: formatAmount({
-        amount: variant.original_price,
+        amount: variant.original_price / 10,
         region,
         includeTaxes: false,
       }),
