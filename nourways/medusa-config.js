@@ -54,6 +54,12 @@ const plugins = [
   },
 ];
 
+const featureFlags = {
+  product_categories: true,
+  tax_inclusive_pricing: true,
+  order_editing: true,
+};
+
 const modules = {
   /*eventBus: {
     resolve: "@medusajs/event-bus-redis",
@@ -85,4 +91,5 @@ module.exports = {
   projectConfig,
   plugins,
   modules,
+  featureFlags,
 };
