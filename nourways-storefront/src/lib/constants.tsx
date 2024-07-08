@@ -55,3 +55,7 @@ export const noDivisionCurrencies = [
   "xdr",
   "xau",
 ]
+export const enum SECTION_TYPES {
+  BANNER_SLIDER = "sliders",
+  NEW_COLLECTIONS = "new collection",
+}

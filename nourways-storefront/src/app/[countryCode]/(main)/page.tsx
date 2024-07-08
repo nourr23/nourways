@@ -7,6 +7,8 @@ import Hero from "@modules/home/components/hero"
 import { ProductCategoryWithChildren } from "types/global"
 import { cache } from "react"
 import BannerSlider from "@modules/home/components/banner-slider"
+import { SECTION_TYPES } from "@lib/constants"
+import NewCollections from "@modules/home/components/new-collections"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -64,19 +66,32 @@ export default async function Home({
   params: { countryCode: string }
 }) {
   const categories = await getCategoriesWithProducts(countryCode)
-  console.log("product_categories", categories && categories[0])
+  console.log("product_categories", categories && categories[1])
   const region = await getRegion(countryCode)
 
   if (!categories || !region) {
     return null
   }
 
+  const HomeSectionRenderer = ({ payload }: any) => {
+    switch (payload.name) {
+      case SECTION_TYPES.BANNER_SLIDER:
+        return <BannerSlider region={region} categories={payload} />
+      case SECTION_TYPES.NEW_COLLECTIONS:
+        return <NewCollections region={region} categories={payload} />
+      default:
+        return null
+    }
+  }
+
   return (
     <>
       <div className="">
         <ul className="flex flex-col gap-x-6 ">
-          <BannerSlider region={region} categories={categories[0]} />
           {/* <FeaturedProducts collections={collections} region={region} /> */}
+          {categories.map((section: any) => (
+            <HomeSectionRenderer key={section.id} payload={section} />
+          ))}
         </ul>
       </div>
     </>

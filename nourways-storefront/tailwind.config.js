@@ -10,8 +10,14 @@ module.exports = {
     "./src/modules/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@medusajs/ui/dist/**/*.{js,jsx,ts,tsx}",
   ],
+  safelist: [
+    'fade-in',
+  ],
   theme: {
     extend: {
+      backgroundImage: {
+        'office': "url('/home/homebg.jpg')",
+      },
       transitionProperty: {
         width: "width margin",
         height: "height",
@@ -78,11 +84,19 @@ module.exports = {
         "fade-in-right": {
           "0%": {
             opacity: "0",
-            transform: "translateX(10px)",
+            // transform: "translateX(10px)",
           },
           "100%": {
             opacity: "1",
-            transform: "translateX(0)",
+            // transform: "translateX(0)",
+          },
+        },
+        "fade-in": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
           },
         },
         "fade-in-top": {
@@ -145,6 +159,7 @@ module.exports = {
         ring: "ring 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite",
         "fade-in-right":
           "fade-in-right 0.3s cubic-bezier(0.5, 0, 0.5, 1) forwards",
+        "fade-in": "fade-in 0.3s cubic-bezier(0.5, 0, 0.5, 1) forwards",
         "fade-in-top": "fade-in-top 0.2s cubic-bezier(0.5, 0, 0.5, 1) forwards",
         "fade-out-top":
           "fade-out-top 0.2s cubic-bezier(0.5, 0, 0.5, 1) forwards",

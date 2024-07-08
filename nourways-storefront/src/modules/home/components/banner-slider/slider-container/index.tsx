@@ -3,8 +3,9 @@ import { Region } from "@medusajs/medusa"
 import { ProductCategoryWithChildren, ProductPreviewType } from "types/global"
 import Image from "next/image"
 import { useState } from "react"
-import { ArrowRightMini, ArrowLeftMini } from "@medusajs/icons"
-// import { BsArrowRight } from "react-icons/bs"
+import { ArrowRightMini, ArrowLeftMini, ArrrowRight } from "@medusajs/icons"
+import { BsArrowRight } from "react-icons/bs"
+import { PiArrowRightDuotone, PiArrowLeftDuotone } from "react-icons/pi"
 
 export default function SliderContainer({
   categories,
@@ -29,17 +30,17 @@ export default function SliderContainer({
   const [mainSlider, setMainSlider] = useState(0)
   const SideSlider = ({ item }: any) => {
     return (
-      <div className="relative rounded-lg overflow-hidden w-[85px]">
-        <div className=" h-[353px] w-[320px] bg-white relative">
+      <div className="relative rounded-xl overflow-hidden w-[90px]">
+        <div className=" h-[383px] w-[350px] bg-white relative">
           <Image
             src={`${item.thumbnail}`}
-            width={320}
-            height={353}
+            width={350}
+            height={383}
             objectFit="cover"
             alt={item.title}
           />
           <div className=" absolute h-full w-full bg-[rgba(0,0,0,0.3)] left-0 top-0"></div>
-          <span className=" text-white absolute bottom-16 font-bold text-lg left-[-14px] capitalize -rotate-90">
+          <span className=" whitespace-nowrap w-[140px] text-white absolute bottom-20 font-bold text-lg left-[-24px] capitalize -rotate-90">
             {item.title}
           </span>
         </div>
@@ -49,13 +50,18 @@ export default function SliderContainer({
   return (
     <>
       <div className="  gap-x-4 flex items-center  ">
-        <div className=" w-[320px] h-[353px] rounded-xl overflow-hidden relative pb-10">
+        <div
+          className={` ${
+            mainSlider % 2 == 0 ? "animate-fade-in-right" : "animate-fade-in"
+          } w-[350px] h-[383px] rounded-xl overflow-hidden relative pb-10 `}
+        >
           <Image
             src={`${categories && sliders[0].thumbnail}`}
-            width={320}
-            height={353}
+            width={350}
+            height={386}
             objectFit="cover"
             alt="Picture of the author"
+            className=""
           />
           <div className=" absolute h-full w-full bg-[rgba(0,0,0,0.3)] left-0 top-0"></div>
           <div className=" absolute bottom-7 px-4 flex w-full items-center justify-between">
@@ -67,15 +73,16 @@ export default function SliderContainer({
             </span>
           </div>
         </div>
-
-        {categories &&
-          sliders
-            .slice(1, 3)
-            .map((product: any) => (
-              <SideSlider key={product.key} item={product} />
-            ))}
+        <div className=" md:flex hidden gap-x-4">
+          {categories &&
+            sliders
+              .slice(1, 3)
+              .map((product: any) => (
+                <SideSlider key={product.key} item={product} />
+              ))}
+        </div>
       </div>
-      <div className=" flex gap-x-2 items-center">
+      <div className=" flex gap-x-3 items-center justify-center md:justify-start mt-8">
         <button
           onClick={() => {
             mainSlider > 0 && setMainSlider((prev) => prev - 1)
@@ -83,11 +90,12 @@ export default function SliderContainer({
           }}
           className={`${
             mainSlider > 0 ? "bg-[#d09423]" : " bg-[rgba(255,255,255,0.1)]"
-          } rounded-2xl py-1 px-3 mt-8`}
+          } rounded-3xl md:py-2 md:px-6 py-1 px-3 `}
         >
-          <ArrowLeftMini
+          <PiArrowLeftDuotone
             className="group-hover:rotate-45 ease-in-out duration-150"
             color="white"
+            size={28}
           />
         </button>
         <button
@@ -99,11 +107,12 @@ export default function SliderContainer({
             mainSlider < sliders.length - 1
               ? "bg-[#d09423]"
               : " bg-[rgba(255,255,255,0.1)]"
-          } rounded-2xl py-1 px-3 mt-8`}
+          } rounded-3xl md:py-2 md:px-6 py-1 px-3 `}
         >
-          <ArrowRightMini
+          <PiArrowRightDuotone
             className="group-hover:rotate-45 ease-in-out duration-150 "
             color="white"
+            size={28}
           />
         </button>
       </div>
