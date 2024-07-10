@@ -66,19 +66,25 @@ export default async function Home({
   params: { countryCode: string }
 }) {
   const categories = await getCategoriesWithProducts(countryCode)
-  console.log("product_categories", categories && categories[1])
+  // console.log("product_categories", categories && categories[1])
   const region = await getRegion(countryCode)
 
   if (!categories || !region) {
     return null
   }
 
-  const HomeSectionRenderer = ({ payload }: any) => {
+  const HomeSectionRenderer = ({ payload, countryCode }: any) => {
     switch (payload.name) {
       case SECTION_TYPES.BANNER_SLIDER:
         return <BannerSlider region={region} categories={payload} />
       case SECTION_TYPES.NEW_COLLECTIONS:
-        return <NewCollections region={region} categories={payload} />
+        return (
+          <NewCollections
+            countryCode={countryCode}
+            handle={payload.handle}
+            categories={payload}
+          />
+        )
       default:
         return null
     }
@@ -90,7 +96,11 @@ export default async function Home({
         <ul className="flex flex-col gap-x-6 ">
           {/* <FeaturedProducts collections={collections} region={region} /> */}
           {categories.map((section: any) => (
-            <HomeSectionRenderer key={section.id} payload={section} />
+            <HomeSectionRenderer
+              key={section.id}
+              payload={section}
+              countryCode={countryCode}
+            />
           ))}
         </ul>
       </div>
