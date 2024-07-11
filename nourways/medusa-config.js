@@ -34,6 +34,12 @@ const DATABASE_URL =
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 
 const plugins = [
+  {
+    resolve: "medusa-plugin-category-images",
+    options: {
+      enableUI: true,
+    },
+  },
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
   {

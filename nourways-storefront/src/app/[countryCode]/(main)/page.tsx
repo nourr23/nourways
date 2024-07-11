@@ -9,6 +9,7 @@ import { cache } from "react"
 import BannerSlider from "@modules/home/components/banner-slider"
 import { SECTION_TYPES } from "@lib/constants"
 import NewCollections from "@modules/home/components/new-collections"
+import FeaturedCategories from "@modules/home/components/featured-categories"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -66,7 +67,7 @@ export default async function Home({
   params: { countryCode: string }
 }) {
   const categories = await getCategoriesWithProducts(countryCode)
-  // console.log("product_categories", categories && categories[1])
+  // console.log("product_categories", categories && categories[2])
   const region = await getRegion(countryCode)
 
   if (!categories || !region) {
@@ -80,6 +81,14 @@ export default async function Home({
       case SECTION_TYPES.NEW_COLLECTIONS:
         return (
           <NewCollections
+            countryCode={countryCode}
+            handle={payload.handle}
+            categories={payload}
+          />
+        )
+      case SECTION_TYPES.FEATURED_CATEGORIES:
+        return (
+          <FeaturedCategories
             countryCode={countryCode}
             handle={payload.handle}
             categories={payload}

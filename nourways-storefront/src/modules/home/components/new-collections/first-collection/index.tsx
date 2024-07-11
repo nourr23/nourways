@@ -13,7 +13,6 @@ export const FirstCollection = ({
   const [activeProduct, setActiveProduct] = useState(categories.products[0])
   const [activeIndex, setActiveIndex] = useState(0)
   const products = categories.products
-  console.log("product_categories", products && products)
   return (
     <div className=" bg-grey-0 flex flex-col items-start p-3  md:p-6 rounded-3xl min-w-[320px]">
       <div className=" mx-auto md:mx-0 mb-4 uppercase text-primary-500 px-8 py-2 rounded-3xl bg-white border border-neutral-200">
