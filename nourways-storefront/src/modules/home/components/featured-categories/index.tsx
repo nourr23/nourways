@@ -35,7 +35,6 @@ export default async function FeaturedCategories({
     countryCode,
     handle
   )
-  console.log("featuredCategories", featuredCategories && featuredCategories)
 
   return (
     <div className=" py-6 px-3 w-full flex justify-center ">

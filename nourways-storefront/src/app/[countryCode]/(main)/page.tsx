@@ -10,6 +10,7 @@ import BannerSlider from "@modules/home/components/banner-slider"
 import { SECTION_TYPES } from "@lib/constants"
 import NewCollections from "@modules/home/components/new-collections"
 import FeaturedCategories from "@modules/home/components/featured-categories"
+import TrendingProducts from "@modules/home/components/trending-products"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -86,12 +87,21 @@ export default async function Home({
             categories={payload}
           />
         )
-      case SECTION_TYPES.FEATURED_CATEGORIES:
+      // case SECTION_TYPES.FEATURED_CATEGORIES:
+      //   return (
+      //     <FeaturedCategories
+      //       countryCode={countryCode}
+      //       handle={payload.handle}
+      //       categories={payload}
+      //     />
+      //   )
+      case SECTION_TYPES.TRENDING_PRODUCTS:
         return (
-          <FeaturedCategories
+          <TrendingProducts
             countryCode={countryCode}
             handle={payload.handle}
             categories={payload}
+            region={region}
           />
         )
       default:
@@ -102,7 +112,7 @@ export default async function Home({
   return (
     <>
       <div className="">
-        <ul className="flex flex-col gap-x-6 ">
+        <ul className="flex flex-col gap-x-6 gap-y-16 ">
           {/* <FeaturedProducts collections={collections} region={region} /> */}
           {categories.map((section: any) => (
             <HomeSectionRenderer

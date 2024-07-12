@@ -59,4 +59,5 @@ export const enum SECTION_TYPES {
   BANNER_SLIDER = "sliders",
   NEW_COLLECTIONS = "new collection",
   FEATURED_CATEGORIES = "featured categories",
+  TRENDING_PRODUCTS = "trending products",
 }

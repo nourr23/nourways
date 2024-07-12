@@ -1,10 +1,10 @@
+import { getCategoryByHandle, getProductsList } from "@lib/data"
 import { Product, Region } from "@medusajs/medusa"
-import { ProductCategoryWithChildren } from "types/global"
-import { FirstCollection } from "./first-collection"
-import { SecondCollection } from "./second-collection"
-import { ThirdCollection } from "./third-collection"
 import { cache } from "react"
-import { getProductsList, getCategoryByHandle } from "@lib/data"
+import { ProductCategoryWithChildren } from "types/global"
+import Link from "next/link"
+import { PiArrowRightDuotone } from "react-icons/pi"
+import { TrendingProductsContainer } from "./trending-products-container"
 
 const getCategoriesWithProducts = cache(
   async (
@@ -50,31 +50,49 @@ const getCategoriesWithProducts = cache(
     return categories_children as unknown as ProductCategoryWithChildren[]
   }
 )
-
-export default async function NewCollections({
+export default async function TrendingProducts({
   categories,
   handle,
   countryCode,
+  region
 }: {
   categories: ProductCategoryWithChildren
   handle: string
   countryCode: string
+  region: Region
 }) {
-  const collections = await getCategoriesWithProducts(countryCode, handle)
+  const trendingCategories = await getCategoriesWithProducts(
+    countryCode,
+    handle
+  )
+
+  console.log(
+    "trendingCategories",
+    trendingCategories && trendingCategories[0].products[0]
+  )
+
   return (
-    <div className=" w-full flex justify-center py-6 px-3">
+    <div className="py-6 px-3 w-full flex justify-center ">
       <div className=" w-full max-w-[1300px]">
-        <div className=" sm:w-full md:w-auto lg:w-full flex gap-4 flex-col lg:flex-row ">
-          <div className=" flex flex-col gap-y-4 w-full lg:w-[55%]">
-            {collections && (
-              <>
-                <FirstCollection categories={collections[0]} />
-                <SecondCollection categories={collections[1]} />
-              </>
-            )}
+        <div className="flex w-full justify-between mb-6 items-center">
+          <div className=" text-xl sm:text-3xl text-neutral-700 font-bold capitalize">
+            <div className=" mb-0 md:mb-3">{categories.name}</div>
+            <div>For you!</div>
           </div>
-          {collections && <ThirdCollection categories={collections[2]} />}
+
+          <Link
+            href={categories.handle}
+            className=" flex gap-x-3 items-center bg-secondary-500 px-5 md:px-14 capitalize py-1 md:py-2 rounded-3xl text-base md:text-lg text-white "
+          >
+            Voir tout
+            <PiArrowRightDuotone
+              className="group-hover:rotate-45 ease-in-out duration-150 "
+              color={"white"}
+              size={20}
+            />
+          </Link>
         </div>
+        <TrendingProductsContainer region={region} trendingCategories={trendingCategories} />
       </div>
     </div>
   )
