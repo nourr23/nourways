@@ -60,4 +60,5 @@ export const enum SECTION_TYPES {
   NEW_COLLECTIONS = "new collection",
   FEATURED_CATEGORIES = "featured categories",
   TRENDING_PRODUCTS = "trending products",
+  FLASH_SALE = "flash sale",
 }

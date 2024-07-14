@@ -66,11 +66,6 @@ export default async function TrendingProducts({
     handle
   )
 
-  console.log(
-    "trendingCategories",
-    trendingCategories && trendingCategories[0].products[0]
-  )
-
   return (
     <div className="py-6 px-3 w-full flex justify-center ">
       <div className=" w-full max-w-[1300px]">
