@@ -28,8 +28,8 @@ export default async function TrendingProductsItem({
     region,
   })
   return (
-    <div className=" bg-grey-0 min-w-[331px] max-w-[380px] w-[32%]  flex flex-col justify-between mt-3 rounded-3xl overflow-hidden">
-      <div className="p-6 w-full">
+    <div className=" bg-grey-0 min-w-[320px] max-w-[380px] w-[32%]  flex flex-col justify-between mt-3 rounded-3xl overflow-hidden">
+      <div className="p-5 w-full">
         <div className=" w-full flex justify-between items-center">
           <div className=" h-[45px] flex justify-center items-center px-3 bg-primary-500 text-white rounded-3xl">
             -20%

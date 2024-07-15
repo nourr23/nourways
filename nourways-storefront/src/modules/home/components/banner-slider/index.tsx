@@ -12,26 +12,18 @@ export default async function BannerSlider({
   region: Region
 }) {
   return (
-    <>
-      <div className=" relative bg-[#2d5356] md:flex-row flex-col bg-office py-6 gap-y-4 md:gap-y-0 md:py-20 px-3 flex items-center min-h-[100vh] justify-center">
-        {/* <Image src="/public/home/homebg.jpg" alt={"alt hh"} width="64" height="64" /> */}
-        <Image
-          src={image}
-          alt={"alt hhh"}
-          width="1100"
-          objectFit="contain"
-          height="490"
-          className=" opacity-[0.02] absolute top-0 left-0"
-        />
-        <div className=" relative gap-y-4 md:gap-y-8 px-0 md:px-8 flex flex-col justify-center items-start w-full md:w-[45%]">
-          <div className=" rounded-xl bg-[rgba(255,255,255,0.1)] px-3 py-1 text-white capitalize">
+    <div className=" w-full relative flex justify-center bg-primary-500">
+      <div className="absolute h-full w-full slider-bg opacity-[0.03] "></div>
+      <div className=" max-w-[1700px] relative lg:flex-row flex-col bg-office py-6 gap-y-4 lg:gap-y-0 lg:py-20 px-3 flex items-center min-h-[100vh] justify-center">
+        <div className=" relative gap-y-4 lg:gap-y-8 pl-0 lg:pl-20 flex flex-col lg:items-start banner-first-part pr-2 items-center w-full lg:w-[55%]">
+          <div className=" rounded-xl bg-[rgba(255,255,255,0.1)] px-6 lg:px-0 py-1 text-white capitalize">
             website for furniture
           </div>
           <div className=" capitalize text-3xl font-bold  text-white leading-9">
             <div>title for the</div>
             <div>futiture website</div>
           </div>
-          <div className=" text-neutral-300 ">
+          <div className=" text-neutral-300  text-lg px-11 lg:px-0">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum
             necessitatibus quia impedit repellendus, eaque placeat ducimus dicta
             corporis ea optio sapiente dolor suscipit corrupti aut, quidem
@@ -51,6 +43,6 @@ export default async function BannerSlider({
           <SliderContainer region={region} categories={categories} />
         </div>
       </div>
-    </>
+    </div>
   )
 }
