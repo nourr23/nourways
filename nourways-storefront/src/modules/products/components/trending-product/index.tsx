@@ -1,9 +1,11 @@
 import { CiHeart } from "react-icons/ci"
-import { FaHeart, FaShoppingCart } from "react-icons/fa"
+import { FaHeart } from "react-icons/fa"
 import Image from "next/image"
 import { Region } from "@medusajs/medusa"
 import { getProductPrice } from "@lib/util/get-product-price"
 import TrendingPrice from "./price"
+import Link from "next/link"
+import ProductActions from "../product-actions"
 
 export default function TrendingProductsItem({
   item,
@@ -16,6 +18,7 @@ export default function TrendingProductsItem({
     product: item,
     region,
   })
+
   return (
     <div className=" bg-grey-0 min-w-[320px] max-w-[380px] w-[32%]  flex flex-col justify-between mt-3 rounded-3xl overflow-hidden">
       <div className="p-5 w-full">
@@ -28,7 +31,7 @@ export default function TrendingProductsItem({
           </button>
         </div>
         <div className="flex-1 flex justify-center items-center">
-          <div className="  w-[200px] my-3 ">
+          <Link href={`/products/${item.handle}`} className="  w-[200px] my-3 ">
             <Image
               src={`${item && item.thumbnail}`}
               width={200}
@@ -37,7 +40,7 @@ export default function TrendingProductsItem({
               alt={item.title}
               className={`w-[200px] md:w-[200px] `}
             />
-          </div>
+          </Link>
         </div>
       </div>
       <div className="py-5 bg-primary-500 w-full rounded-2xl">
@@ -48,9 +51,8 @@ export default function TrendingProductsItem({
               {cheapestPrice && <TrendingPrice price={cheapestPrice} />}
             </div>
           </div>
-          <button className=" outline-none border-none h-[54px] w-[54px] flex justify-center items-center bg-white rounded-[27px]">
-            <FaShoppingCart color="#d09423" size={30} />
-          </button>
+          <ProductActions region={region} product={item} buttonType={"icon"} />
+          
         </div>
       </div>
     </div>
