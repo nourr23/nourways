@@ -26,6 +26,7 @@ export const SecondCollection = ({
             <div className=" flex gap-y-1 w-full items-start flex-col">
               {categories.products.map((product: any, index: number) => (
                 <button
+                  key={index}
                   onClick={() => {
                     setActiveProduct(product)
                     setActiveIndex(index)
@@ -72,7 +73,7 @@ export const SecondCollection = ({
         </div>
       </div>
       <div className=" flex-col flex items-center justify-center gap-y-1 bg-primary-500 p-3 overflow-hidden h-[270px] md:h-auto flex-auto md:flex-1 md:p-8 rounded-3xl relative">
-      <Image
+        <Image
           src={imagebg}
           alt={"image bg"}
           width="350"
@@ -81,7 +82,7 @@ export const SecondCollection = ({
           className=" opacity-[0.06] absolute top-0 left-0"
         />
         <div className="relative uppercase border border-white text-white bg-secondary-500 rounded-3xl py-2 px-5">
-            get discount
+          get discount
         </div>
         <div className=" text-white uppercase text-3xl">20% Offer</div>
       </div>

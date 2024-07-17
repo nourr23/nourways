@@ -23,6 +23,7 @@ export const FirstCollection = ({
           <div className=" flex gap-y-2 items-center w-full md:items-start flex-col">
             {products.map((product: any, index: number) => (
               <button
+                key={index}
                 onClick={() => {
                   setActiveProduct(product)
                   setActiveIndex(index)

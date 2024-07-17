@@ -1,15 +1,23 @@
-import { ProductCategoryWithChildren, ProductPreviewType } from "types/global"
 import { LuClock12 } from "react-icons/lu"
 import Image from "next/image"
 import Link from "next/link"
+import { Region } from "@medusajs/medusa"
+import { getProductPrice } from "@lib/util/get-product-price"
+import TrendingPrice from "@modules/products/components/trending-product/price"
 
 export const FirstFlash = ({
   product,
   name,
+  region,
 }: {
-  product: ProductPreviewType
+  product: any
   name: string
+  region: Region
 }) => {
+  const { cheapestPrice } = getProductPrice({
+    product: product,
+    region,
+  })
   return (
     <div className="bg-grey-0 p-3 md:p-10 rounded-3xl flex min-w-[320px] flex-col w-full lg:w-[65%]">
       <div className="flex w-full justify-between">
@@ -57,11 +65,14 @@ export const FirstFlash = ({
             </div>
           </div>
           <div className=" flex justify-start pl-3 sm:pl-0 sm:justify-center gap-5 items-center mt-4">
-            <div className=" text-neutral-700 font-bold text-base sm:text-lg">
-              {product.price && product.price.calculated_price}
-            </div>
+            {cheapestPrice && (
+              <TrendingPrice
+                style={"text-neutral-700 font-bold text-base sm:text-lg"}
+                price={cheapestPrice}
+              />
+            )}
             <div className=" text-neutral-500 line-through text-sm sm:text-base">
-              7990,000 TND
+              799,000 TND
             </div>
           </div>
         </div>

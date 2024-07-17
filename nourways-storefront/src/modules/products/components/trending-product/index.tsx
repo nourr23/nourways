@@ -1,30 +1,19 @@
 import { CiHeart } from "react-icons/ci"
 import { FaHeart, FaShoppingCart } from "react-icons/fa"
 import Image from "next/image"
-import { ProductPreviewType } from "types/global"
 import { Region } from "@medusajs/medusa"
-import { retrievePricedProductById } from "@lib/data"
 import { getProductPrice } from "@lib/util/get-product-price"
 import TrendingPrice from "./price"
 
-export default async function TrendingProductsItem({
+export default function TrendingProductsItem({
   item,
   region,
 }: {
-  item: ProductPreviewType
+  item: any
   region: Region
 }) {
-  const pricedProduct = await retrievePricedProductById({
-    id: item.id,
-    regionId: region.id,
-  }).then((product) => product)
-
-  if (!pricedProduct) {
-    return null
-  }
-
   const { cheapestPrice } = getProductPrice({
-    product: pricedProduct,
+    product: item,
     region,
   })
   return (
@@ -54,7 +43,7 @@ export default async function TrendingProductsItem({
       <div className="py-5 bg-primary-500 w-full rounded-2xl">
         <div className="flex justify-between px-6 items-center">
           <div className=" text-white text-lg capitalize">
-            <div>{item.title}</div>
+            <div>{item.description}</div>
             <div>
               {cheapestPrice && <TrendingPrice price={cheapestPrice} />}
             </div>

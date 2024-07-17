@@ -82,7 +82,7 @@ export default function SliderContainer({
                 sliders
                   .slice(1, 3)
                   .map((product: any) => (
-                    <SideSlider key={product.key} item={product} />
+                    <SideSlider key={product.id} item={product} />
                   ))}
             </div>
           </div>

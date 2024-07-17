@@ -1,10 +1,11 @@
-import { getCategoryByHandle, getProductsList } from "@lib/data"
+import { getCategoryByHandle } from "@lib/data"
 import { Product, Region } from "@medusajs/medusa"
 import { cache } from "react"
 import { ProductCategoryWithChildren } from "types/global"
 import Link from "next/link"
 import { PiArrowRightDuotone } from "react-icons/pi"
 import { TrendingProductsContainer } from "./trending-products-container"
+import { getProductsList } from "@lib/util/get-category-products"
 
 const getCategoriesWithProducts = cache(
   async (
@@ -54,7 +55,7 @@ export default async function TrendingProducts({
   categories,
   handle,
   countryCode,
-  region
+  region,
 }: {
   categories: ProductCategoryWithChildren
   handle: string
@@ -87,7 +88,11 @@ export default async function TrendingProducts({
             />
           </Link>
         </div>
-        <TrendingProductsContainer region={region} trendingCategories={trendingCategories} />
+        <TrendingProductsContainer
+          countryCode={countryCode}
+          region={region}
+          trendingCategories={trendingCategories}
+        />
       </div>
     </div>
   )

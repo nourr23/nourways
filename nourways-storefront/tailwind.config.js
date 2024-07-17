@@ -14,9 +14,6 @@ module.exports = {
   safelist: ["fade-in"],
   theme: {
     extend: {
-      backgroundImage: {
-        office: "url('/home/homebg.jpg')",
-      },
       transitionProperty: {
         width: "width margin",
         height: "height",
