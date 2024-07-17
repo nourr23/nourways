@@ -1,11 +1,17 @@
 import { Product } from "@medusajs/medusa"
 import { Metadata } from "next"
 
-import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
+import { getProductsList, getRegion, getCategoryByHandle } from "@lib/data"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
-import { ProductCollectionWithPreviews } from "types/global"
+import { ProductCategoryWithChildren } from "types/global"
 import { cache } from "react"
+import BannerSlider from "@modules/home/components/banner-slider"
+import { SECTION_TYPES } from "@lib/constants"
+import NewCollections from "@modules/home/components/new-collections"
+import FeaturedCategories from "@modules/home/components/featured-categories"
+import TrendingProducts from "@modules/home/components/trending-products"
+import FlashSale from "@modules/home/components/flash-sale"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -13,44 +19,47 @@ export const metadata: Metadata = {
     "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
 }
 
-const getCollectionsWithProducts = cache(
+const getCategoriesWithProducts = cache(
   async (
     countryCode: string
-  ): Promise<ProductCollectionWithPreviews[] | null> => {
-    const { collections } = await getCollectionsList(0, 3)
+  ): Promise<ProductCategoryWithChildren[] | null> => {
+    const { product_categories } = await getCategoryByHandle(["home"])
 
-    if (!collections) {
+    if (!product_categories) {
       return null
     }
 
-    const collectionIds = collections.map((collection) => collection.id)
+    const categories_children: ProductCategoryWithChildren[] =
+      product_categories[0].category_children
+
+    const collectionIds = categories_children.map((category) => category.id)
 
     await Promise.all(
       collectionIds.map((id) =>
         getProductsList({
-          queryParams: { collection_id: [id] },
+          queryParams: { category_id: [id] },
           countryCode,
         })
       )
     ).then((responses) =>
       responses.forEach(({ response, queryParams }) => {
-        let collection
+        let category
 
-        if (collections) {
-          collection = collections.find(
-            (collection) => collection.id === queryParams?.collection_id?.[0]
+        if (categories_children) {
+          category = categories_children.find(
+            (category) => category.id === queryParams?.category_id?.[0]
           )
         }
 
-        if (!collection) {
+        if (!category) {
           return
         }
 
-        collection.products = response.products as unknown as Product[]
+        category.products = response.products as unknown as Product[]
       })
     )
 
-    return collections as unknown as ProductCollectionWithPreviews[]
+    return categories_children as unknown as ProductCategoryWithChildren[]
   }
 )
 
@@ -59,19 +68,69 @@ export default async function Home({
 }: {
   params: { countryCode: string }
 }) {
-  const collections = await getCollectionsWithProducts(countryCode)
+  const categories = await getCategoriesWithProducts(countryCode)
+  // console.log("product_categories", categories && categories[2])
   const region = await getRegion(countryCode)
 
-  if (!collections || !region) {
+  if (!categories || !region) {
     return null
+  }
+
+  const HomeSectionRenderer = ({ payload, countryCode }: any) => {
+    switch (payload.name) {
+      case SECTION_TYPES.BANNER_SLIDER:
+        return <BannerSlider region={region} categories={payload} />
+      case SECTION_TYPES.NEW_COLLECTIONS:
+        return (
+          <NewCollections
+            countryCode={countryCode}
+            handle={payload.handle}
+            categories={payload}
+          />
+        )
+      // case SECTION_TYPES.FEATURED_CATEGORIES:
+      //   return (
+      //     <FeaturedCategories
+      //       countryCode={countryCode}
+      //       handle={payload.handle}
+      //       categories={payload}
+      //     />
+      //   )
+      case SECTION_TYPES.TRENDING_PRODUCTS:
+        return (
+          <TrendingProducts
+            countryCode={countryCode}
+            handle={payload.handle}
+            categories={payload}
+            region={region}
+          />
+        )
+      case SECTION_TYPES.FLASH_SALE:
+        return (
+          <FlashSale
+            countryCode={countryCode}
+            region={region}
+            categories={payload}
+            handle={payload.handle}
+          />
+        )
+      default:
+        return null
+    }
   }
 
   return (
     <>
-      <Hero />
-      <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
+      <div className="">
+        <ul className="flex flex-col gap-x-6 gap-y-2 md:gap-y-16 ">
+          {/* <FeaturedProducts collections={collections} region={region} /> */}
+          {categories.map((section: any) => (
+            <HomeSectionRenderer
+              key={section.id}
+              payload={section}
+              countryCode={countryCode}
+            />
+          ))}
         </ul>
       </div>
     </>
