@@ -45,6 +45,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           <Suspense
             fallback={
               <ProductActions
+                buttonType="normal"
                 disabled={true}
                 product={product}
                 region={region}
