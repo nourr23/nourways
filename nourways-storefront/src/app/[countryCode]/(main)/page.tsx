@@ -88,14 +88,14 @@ export default async function Home({
             categories={payload}
           />
         )
-      // case SECTION_TYPES.FEATURED_CATEGORIES:
-      //   return (
-      //     <FeaturedCategories
-      //       countryCode={countryCode}
-      //       handle={payload.handle}
-      //       categories={payload}
-      //     />
-      //   )
+      case SECTION_TYPES.FEATURED_CATEGORIES:
+        return (
+          <FeaturedCategories
+            countryCode={countryCode}
+            handle={payload.handle}
+            categories={payload}
+          />
+        )
       case SECTION_TYPES.TRENDING_PRODUCTS:
         return (
           <TrendingProducts

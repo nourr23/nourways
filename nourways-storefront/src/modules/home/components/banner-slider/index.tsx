@@ -23,7 +23,7 @@ export default async function BannerSlider({
             <div>title for the</div>
             <div>futiture website</div>
           </div>
-          <div className=" text-neutral-300  text-lg px-11 lg:px-0">
+          <div className=" text-neutral-300  text-lg px-3 sm:px-11 lg:px-0">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum
             necessitatibus quia impedit repellendus, eaque placeat ducimus dicta
             corporis ea optio sapiente dolor suscipit corrupti aut, quidem

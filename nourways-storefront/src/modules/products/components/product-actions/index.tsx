@@ -11,6 +11,7 @@ import { useIntersection } from "@lib/hooks/use-in-view"
 import { addToCart } from "@modules/cart/actions"
 import Divider from "@modules/common/components/divider"
 import OptionSelect from "@modules/products/components/option-select"
+import { FaHeart, FaShoppingCart } from "react-icons/fa"
 
 import MobileActions from "../mobile-actions"
 import ProductPrice from "../product-price"
@@ -19,6 +20,7 @@ type ProductActionsProps = {
   product: PricedProduct
   region: Region
   disabled?: boolean
+  buttonType: "icon" | "icon-outline" | "normal"
 }
 
 export type PriceType = {
@@ -32,6 +34,7 @@ export default function ProductActions({
   product,
   region,
   disabled,
+  buttonType,
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string>>({})
   const [isAdding, setIsAdding] = useState(false)
@@ -138,7 +141,7 @@ export default function ProductActions({
   return (
     <>
       <div className="flex flex-col gap-y-2" ref={actionsRef}>
-        <div>
+        {/* <div>
           {product.variants.length > 1 && (
             <div className="flex flex-col gap-y-4">
               {(product.options || []).map((option) => {
@@ -158,24 +161,40 @@ export default function ProductActions({
               <Divider />
             </div>
           )}
-        </div>
+        </div> */}
 
-        <ProductPrice product={product} variant={variant} region={region} />
+        {/* <ProductPrice product={product} variant={variant} region={region} /> */}
+        {isAdding ? (
+          <div className=" w-[54px] h-[54px] animate-ring overflow-hidden rounded-[27px] items-center justify-center flex bg-white">
+            <div className="absolute w-[12px] top-[17px] animate-enter left-[12px] rounded-[6px] h-[12px] bg-secondary-500 "></div>
+            <div className="absolute w-[12px] top-[17px] animate-accordion-up left-[29px] rounded-[6px]   h-[12px] bg-secondary-500 "></div>
+            <div className="absolute w-[12px] top-[34px] animate-accordion-down left-[23px] rounded-[6px]   h-[12px] bg-secondary-500 "></div>
+          </div>
+        ) : buttonType == "icon" ? (
+          <button
+            onClick={handleAddToCart}
+            disabled={!inStock || !variant || isAdding}
+            className=" outline-none border-none h-[54px] w-[54px] flex justify-center items-center bg-white rounded-[27px]"
+          >
+            {isAdding ? <> </> : <FaShoppingCart color="#d09423" size={30} />}
+          </button>
+        ) : (
+          <Button
+            onClick={handleAddToCart}
+            disabled={!inStock || !variant || !!disabled || isAdding}
+            variant="primary"
+            className="w-full h-10"
+            isLoading={isAdding}
+            data-testid="add-product-button"
+          >
+            {!variant
+              ? "Select variant"
+              : !inStock
+              ? "Out of stock"
+              : "Add to cart"}
+          </Button>
+        )}
 
-        <Button
-          onClick={handleAddToCart}
-          disabled={!inStock || !variant || !!disabled || isAdding}
-          variant="primary"
-          className="w-full h-10"
-          isLoading={isAdding}
-          data-testid="add-product-button"
-        >
-          {!variant
-            ? "Select variant"
-            : !inStock
-            ? "Out of stock"
-            : "Add to cart"}
-        </Button>
         <MobileActions
           product={product}
           variant={variant}

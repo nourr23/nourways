@@ -44,6 +44,7 @@
     "medusa-payment-manual": "latest",
     "medusa-payment-stripe": "latest",
     "medusa-plugin-category-images": "^1.0.17",
+    "medusa-plugin-wishlist": "^1.1.43",
     "medusa-react": "^9.0.17",
     "prism-react-renderer": "^2.0.4",
     "typeorm": "^0.3.16"

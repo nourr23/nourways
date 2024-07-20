@@ -1,5 +1,6 @@
 module.exports = {
   primary: {
+    400: "#0b7e87",
     500: "#2d5356",
   },
   secondary: {

@@ -4,6 +4,8 @@ import Link from "next/link"
 import { Region } from "@medusajs/medusa"
 import { getProductPrice } from "@lib/util/get-product-price"
 import TrendingPrice from "@modules/products/components/trending-product/price"
+import { CountDown } from "@modules/common/components/count-down"
+import { SECTION_TYPES } from "@lib/constants"
 
 export const FirstFlash = ({
   product,
@@ -18,36 +20,35 @@ export const FirstFlash = ({
     product: product,
     region,
   })
+  const pricing_item = product.variants[0].prices.filter(
+    (item: any) =>
+      item.price_list && item.price_list.name === SECTION_TYPES.FLASH_SALE
+  )
   return (
     <div className="bg-grey-0 p-3 md:p-10 rounded-3xl flex min-w-[320px] flex-col w-full lg:w-[65%]">
-      <div className="flex w-full justify-between">
+      <div className="flex gap-y-3 sm:gap-3 flex-col sm:flex-row w-full justify-between">
         <div>
-          <div className=" text-xl sm:text-3xl capitalize font-bold text-neutral-700">
+          <div className=" text-xl sm:text-3xl capitalize text-center sm:text-left font-bold text-neutral-700">
             {name}
           </div>
-          <div className="text-neutral-500 text-sm sm:text-lg pr-4 mt-3">
-            Act fast to grab incredible deals on select furniture pieces in our
-            limited-time flash sale
+          <div className="text-neutral-500 text-sm sm:text-lg pr-4 mt-3 text-center sm:text-left">
+            {pricing_item && pricing_item[0].price_list.description}
           </div>
         </div>
 
-        <div>
-          <div className=" w-full flex items-center justify-center gap-x-1">
-            <LuClock12 color="#2d5356" size={30} />
-            <div className=" text-primary-500 text-sm sm:text-lg">End time</div>
-          </div>
-          <div className=" flex gap-x-1 mt-2">
-            <div className="bg-white text-neutral-600 sm:text-base text-xs whitespace-nowrap px-2 py-1">
-              12 H
+        {pricing_item && pricing_item[0].price_list.ends_at && (
+          <div>
+            <div className=" w-full flex items-center justify-center gap-x-1">
+              <LuClock12 color="#2d5356" size={30} />
+              <div className=" text-primary-500 text-sm sm:text-lg">
+                End time
+              </div>
             </div>
-            <div className="bg-white text-neutral-600 sm:text-base text-xs whitespace-nowrap px-2 py-1">
-              36 M
-            </div>
-            <div className="bg-white text-neutral-600 sm:text-base text-xs whitespace-nowrap px-2 py-1">
-              57 S
+            <div className="flex justify-center ">
+              <CountDown targetDate={pricing_item[0].price_list.ends_at} />
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="flex w-full mt-8 sm:flex-row flex-col sm:items-start items-center">
@@ -71,9 +72,6 @@ export const FirstFlash = ({
                 price={cheapestPrice}
               />
             )}
-            <div className=" text-neutral-500 line-through text-sm sm:text-base">
-              799,000 TND
-            </div>
           </div>
         </div>
         <div className="flex flex-col w-full sm:w-[50%] px-3 items-start">
@@ -81,8 +79,7 @@ export const FirstFlash = ({
             {product.title}
           </div>
           <div className="text-neutral-500 text-sm sm:text-lg mt-4">
-            Bring a touch of retro charm to your home with this vintage leather
-            armchair. Sturdy construction ensures durability
+            {product.description}
           </div>
           <Link
             href={product.handle ? product.handle : ""}
