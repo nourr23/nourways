@@ -12,6 +12,7 @@ import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
+import { BsHandbag } from "react-icons/bs"
 
 const CartDropdown = ({
   cart: cartState,
@@ -77,12 +78,15 @@ const CartDropdown = ({
       onMouseLeave={close}
     >
       <Popover className="relative h-full">
-        <Popover.Button className="h-full">
+        <Popover.Button className="h-full flex items-center">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className="hover:text-ui-fg-base relative flex items-center"
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+          >
+            <BsHandbag color="white" className=" text-[19px] lg:text-[24px]" />
+            <div className="absolute text-white text-xs top-[-7px] right-[-8px] ">{`${totalItems}`}</div>
+          </LocalizedClientLink>
         </Popover.Button>
         <Transition
           show={cartDropdownOpen}
