@@ -1,6 +1,6 @@
-import { Suspense } from "react"
+import { Suspense, cache } from "react"
 
-import { listRegions } from "@lib/data"
+import { getCategoryByHandle, listRegions } from "@lib/data"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
@@ -9,18 +9,34 @@ import { FaRegUser } from "react-icons/fa"
 import { BsHandbag } from "react-icons/bs"
 import { FaRegHeart } from "react-icons/fa"
 import { BiSearch } from "react-icons/bi"
+import { ProductCategoryWithChildren } from "types/global"
+
+const getCategories = cache(
+  async (): Promise<ProductCategoryWithChildren[] | null> => {
+    const { product_categories } = await getCategoryByHandle(["home"])
+    if (!product_categories) {
+      return null
+    }
+
+    const categories_children: ProductCategoryWithChildren[] =
+      product_categories[0].category_children
+
+    return categories_children as unknown as ProductCategoryWithChildren[]
+  }
+)
 
 export default async function Nav() {
   const regions = await listRegions().then((regions) => regions)
-  console.log("regions", regions && regions[0].countries[0].iso_2)
+  const categories = await getCategories()
+  console.log("categories", categories && categories)
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50 group">
+    <div className="sticky top-0 inset-x-0 z-50">
       <header className="absolute w-full h-20 mx-auto duration-200 bg-primary-500">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
           <div className="flex-1 basis-0 h-full flex items-center">
             <div className="h-full sm:hidden flex">
-              <SideMenu regions={regions} />
+              <SideMenu categories={categories} regions={regions} />
             </div>
             <div className="hidden font-bold sm:flex text-white capitalize text-lg md:text-3xl">
               LOGO
@@ -28,7 +44,7 @@ export default async function Nav() {
           </div>
 
           <div className=" hidden sm:flex">
-            <NavLinks />
+            <NavLinks categories={categories} />
           </div>
           <div className=" font-bold sm:hidden flex text-white capitalize text-lg md:text-3xl">
             LOGO
@@ -85,7 +101,7 @@ export default async function Nav() {
                 </Suspense>
               </div>
               <LocalizedClientLink
-                className="hover:text-ui-fg-base text-white hidden sm:flex flex items-center"
+                className="hover:text-ui-fg-base text-white hidden sm:flex items-center"
                 href="/account"
                 data-testid="nav-account-link"
               >
