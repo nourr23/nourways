@@ -9,7 +9,6 @@ export const NavLinks = ({
   categories: ProductCategoryWithChildren[] | null
 }) => {
   const currentPath = usePathname()
-  console.log("regions", currentPath)
   return (
     <div className="flex gap-x-2 md:gap-x-8 items-center h-full">
       <LocalizedClientLink
