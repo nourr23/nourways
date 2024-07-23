@@ -1,66 +1,118 @@
-import { Suspense } from "react"
+import { Suspense, cache } from "react"
 
-import { listRegions } from "@lib/data"
+import { getCategoryByHandle, listRegions } from "@lib/data"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
+import { NavLinks } from "@modules/layout/components/nav-links"
+import { FaRegUser } from "react-icons/fa"
+import { BsHandbag } from "react-icons/bs"
+import { FaRegHeart } from "react-icons/fa"
+import { BiSearch } from "react-icons/bi"
+import { ProductCategoryWithChildren } from "types/global"
+
+const getCategories = cache(
+  async (): Promise<ProductCategoryWithChildren[] | null> => {
+    const { product_categories } = await getCategoryByHandle(["home"])
+    if (!product_categories) {
+      return null
+    }
+
+    const categories_children: ProductCategoryWithChildren[] =
+      product_categories[0].category_children
+
+    return categories_children as unknown as ProductCategoryWithChildren[]
+  }
+)
 
 export default async function Nav() {
   const regions = await listRegions().then((regions) => regions)
+  const categories = await getCategories()
+  console.log("categories", categories && categories)
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
+    <div className="sticky top-0 inset-x-0 z-50">
+      <header className="absolute w-full h-20 mx-auto duration-200 bg-primary-500">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
           <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} />
+            <div className="h-full sm:hidden flex">
+              <SideMenu categories={categories} regions={regions} />
+            </div>
+            <div className="hidden font-bold sm:flex text-white capitalize text-lg md:text-3xl">
+              LOGO
             </div>
           </div>
 
-          <div className="flex items-center h-full">
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-              data-testid="nav-store-link"
-            >
-              Medusa Store
-            </LocalizedClientLink>
+          <div className=" hidden sm:flex">
+            <NavLinks categories={categories} />
+          </div>
+          <div className=" font-bold sm:hidden flex text-white capitalize text-lg md:text-3xl">
+            LOGO
           </div>
 
           <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
-              {process.env.FEATURE_SEARCH_ENABLED && (
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base"
-                  href="/search"
-                  scroll={false}
-                  data-testid="nav-search-link"
-                >
-                  Search
-                </LocalizedClientLink>
-              )}
+            <div className="flex items-center gap-x-4 lg:gap-x-6 h-full">
+              {/* {process.env.FEATURE_SEARCH_ENABLED && ( */}
               <LocalizedClientLink
-                className="hover:text-ui-fg-base"
+                className="hover:text-ui-fg-base text-white flex items-center"
+                href="/search"
+                scroll={false}
+                data-testid="nav-search-link"
+              >
+                <button>
+                  <BiSearch
+                    color="white"
+                    className=" text-[20px] lg:text-[27px]"
+                  />
+                </button>
+              </LocalizedClientLink>
+              {/* // )} */}
+
+              <LocalizedClientLink
+                className="hover:text-ui-fg-base text-white flex items-center"
+                href="/"
+                data-testid="nav-favorite-link"
+              >
+                <button>
+                  <FaRegHeart
+                    color="white"
+                    className=" text-[19px] lg:text-[25px]"
+                  />
+                </button>
+              </LocalizedClientLink>
+
+              <div className="hidden sm:flex">
+                <Suspense
+                  fallback={
+                    <LocalizedClientLink
+                      className="hover:text-ui-fg-base text-white flex gap-2 relative flex items-center"
+                      href="/cart"
+                      data-testid="nav-cart-link"
+                    >
+                      <BsHandbag
+                        color="white"
+                        className=" text-[20px] lg:text-[26px]"
+                      />
+                      {/* <div className="absolute text-white text-xs top-[-7px] right-[-6px] ">{`0`}</div> */}
+                    </LocalizedClientLink>
+                  }
+                >
+                  <CartButton />
+                </Suspense>
+              </div>
+              <LocalizedClientLink
+                className="hover:text-ui-fg-base text-white hidden sm:flex items-center"
                 href="/account"
                 data-testid="nav-account-link"
               >
-                Account
+                <button>
+                  <FaRegUser
+                    color="white"
+                    className=" text-[20px] lg:text-[26px]"
+                  />
+                </button>
               </LocalizedClientLink>
             </div>
-            <Suspense
-              fallback={
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
-                  href="/cart"
-                  data-testid="nav-cart-link"
-                >
-                  Cart (0)
-                </LocalizedClientLink>
-              }
-            >
-              <CartButton />
-            </Suspense>
           </div>
         </nav>
       </header>
