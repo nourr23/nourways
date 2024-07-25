@@ -21,6 +21,7 @@ import { ProductCategoryWithChildren, ProductPreviewType } from "types/global"
 import { medusaClient } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
 import { cookies } from "next/headers"
+import transformProduct from "@lib/util/transfrom-products"
 
 const emptyResponse = {
   response: { products: [], count: 0 },
@@ -451,7 +452,7 @@ export const getProductsList = cache(async function ({
   queryParams?: StoreGetProductsParams
   countryCode: string
 }): Promise<{
-  response: { products: ProductPreviewType[]; count: number }
+  response: { products: any[]; count: number }
   nextPage: number | null
   queryParams?: StoreGetProductsParams
 }> {
@@ -479,7 +480,7 @@ export const getProductsList = cache(async function ({
     })
 
   const transformedProducts = products.map((product) => {
-    return transformProductPreview(product, region!)
+    return transformProduct(product, region!)
   })
 
   const nextPage = count > pageParam + 1 ? pageParam + 1 : null
@@ -503,7 +504,7 @@ export const getProductsListWithSort = cache(
     sortBy?: SortOptions
     countryCode: string
   }): Promise<{
-    response: { products: ProductPreviewType[]; count: number }
+    response: { products: any[]; count: number }
     nextPage: number | null
     queryParams?: StoreGetProductsParams
   }> {

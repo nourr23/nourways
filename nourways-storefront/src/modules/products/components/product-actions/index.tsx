@@ -178,6 +178,14 @@ export default function ProductActions({
           >
             {isAdding ? <> </> : <FaShoppingCart color="#d09423" size={30} />}
           </button>
+        ) : buttonType == "icon-outline" ? (
+          <button
+            onClick={handleAddToCart}
+            disabled={!inStock || !variant || isAdding}
+            className=" outline-none border-none h-[44px] w-[44px] flex justify-center items-center bg-secondary-500 rounded-[22px]"
+          >
+            {isAdding ? <> </> : <FaShoppingCart color="#fff" size={22} />}
+          </button>
         ) : (
           <Button
             onClick={handleAddToCart}
