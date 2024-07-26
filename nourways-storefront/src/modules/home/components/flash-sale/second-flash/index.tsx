@@ -21,7 +21,7 @@ export const SecondFlash = ({ product }: { product: ProductPreviewType }) => {
           {product.title}
         </div>
         <Link
-          href={product.handle ? product.handle : ""}
+          href={`/products/${product.handle ? product.handle : ""}`}
           className=" flex gap-x-3 items-center bg-secondary-500 px-5 md:px-174 capitalize py-1 md:py-2 rounded-3xl text-base md:text-lg text-white "
         >
           <PiArrowRightDuotone

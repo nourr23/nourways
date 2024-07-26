@@ -108,7 +108,7 @@ export function Pagination({
 
   // Render the component
   return (
-    <div className="flex justify-center w-full gap-x-6 mt-12">
+    <div className="flex justify-between md:justify-center w-full gap-x-6 mt-12">
       <button
         onClick={() => handlePageChange(page - 1)}
         disabled={page == 1}
@@ -116,14 +116,14 @@ export function Pagination({
           page == 1
             ? "border-neutral-100 text-neutral-600"
             : " text-secondary-500 border-secondary-500 bg-secondary-200 "
-        } rounded-3xl  border text-lg  px-4 flex items-center gap-2 py-1`}
+        } rounded-3xl  border text-base md:text-lg  px-4 flex items-center gap-2 py-1`}
       >
         <PiArrowLeftDuotone
           className="group-hover:rotate-45 ease-in-out duration-150"
           color={`${page == 1 ? "#525252 " : "#d09423"}`}
           size={22}
         />
-        Preview
+        Previews
       </button>
       <div className="flex gap-3 items-end" data-testid={dataTestid}>
         {renderPageButtons()}
@@ -135,7 +135,7 @@ export function Pagination({
           page == totalPages
             ? "border-neutral-100 text-neutral-600"
             : " text-secondary-500 border-secondary-500 bg-secondary-200 "
-        } rounded-3xl  border text-lg  px-4 flex items-center gap-2 py-1`}
+        } rounded-3xl  border text-base md:text-lg  px-4 flex items-center gap-2 py-1`}
       >
         Next
         <PiArrowRightDuotone

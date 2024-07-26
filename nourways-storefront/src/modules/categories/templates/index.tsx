@@ -59,40 +59,58 @@ export default async function CategoryTemplate({
       data-testid="category-container"
     >
       <div className="w-full bg-primary-500 relative h-[300px] flex justify-center items-center overflow-hidden">
-        <div className=" text-white font-bold text-3xl">Catégories</div>
+        <div className=" text-white font-bold text-3xl capitalize">
+          {category.name}
+        </div>
         <div className="absolute h-full w-full slider-bg opacity-[0.03] "></div>
       </div>
 
       <div className="py-10 px-3 w-full flex justify-center ">
         <div className=" w-full max-w-[1300px]">
-          <button className=" md:hidden block mb-4">
-            <CiFilter className=" text-secondary-500" size={30} />
-          </button>
-          <div className="flex w-full gap-x-8">
+          <div className="my-4 flex gap-x-4 pb-2  pr-3 x-global-bg overflow-x-scroll w-full md:hidden">
+            {category.category_children.length > 0 ? (
+              <>
+                <CategoriesLink
+                  categoryHandle={category.handle}
+                  item={categories[0]}
+                />
+                {category.category_children?.map((item: any, index: number) => (
+                  <CategoriesLink item={item} />
+                ))}
+              </>
+            ) : (
+              <>
+                {parent_category && (
+                  <>
+                    <CategoriesLink item={parent_category[0]} />
+                    {parent_category[0].category_children.map((item) => (
+                      <div key={item.id}>
+                        <CategoriesLink
+                          categoryHandle={category.handle}
+                          item={item}
+                        />
+                      </div>
+                    ))}
+                  </>
+                )}
+              </>
+            )}
+          </div>
+
+          <div className="flex w-full gap-x-6">
             <div className=" hidden md:block">
               <div className=" text-neutral-900 capitalize text-3xl">
                 option de filtre
               </div>
               <div className="mt-5">
-                <FilterContainer>
-                  <div className=" text-neutral-700 capitalize text-2xl">
-                    Sous catégories
-                  </div>
+                <FilterContainer title="Sous catégories">
                   <div className=" mt-3 flex flex-col gap-y-3 items-start">
                     {category.category_children.length > 0 ? (
                       <>
-                        <Link href={`/categories/${categories[0].handle}`}>
-                          <div
-                            className={` bg-neutral-100 rounded-3xl border items-center border-neutral-200 capitalize text-lg text-neutral-900 flex gap-x-2 py-2 px-6`}
-                          >
-                            <div className=" h-[14px] w-[14px] rounded-[7px] border border-secondary-500 flex justify-center items-center">
-                              <div
-                                className={` h-[12px] w-[12px] rounded-[6px] border bg-secondary-500`}
-                              ></div>
-                            </div>
-                            All
-                          </div>
-                        </Link>
+                        <CategoriesLink
+                          categoryHandle={category.handle}
+                          item={categories[0]}
+                        />
                         {category.category_children?.map((c) => (
                           <div key={c.id}>
                             <CategoriesLink item={c} />
@@ -102,16 +120,7 @@ export default async function CategoryTemplate({
                     ) : (
                       parent_category && (
                         <>
-                          <Link
-                            href={`/categories/${parent_category[0].handle}`}
-                          >
-                            <div className=" rounded-3xl border items-center border-neutral-200 capitalize text-lg text-neutral-900 flex gap-x-2 py-2 px-6">
-                              <div
-                                className={` h-[12px] w-[12px] rounded-[6px] border border-neutral-200`}
-                              ></div>
-                              All
-                            </div>
-                          </Link>
+                          <CategoriesLink item={parent_category[0]} />
                           {parent_category[0].category_children.map((c) => (
                             <div key={c.id}>
                               <CategoriesLink
@@ -126,7 +135,7 @@ export default async function CategoryTemplate({
                   </div>
                 </FilterContainer>
 
-                <FilterContainer>
+                <FilterContainer title={"Trier Par"}>
                   <RefinementList
                     sortBy={sortBy || "created_at"}
                     data-testid="sort-by-container"

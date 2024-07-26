@@ -39,7 +39,7 @@ const SortProducts = ({
 
   return (
     <FilterRadioGroup
-      title="Trier par"
+      title=""
       items={sortOptions}
       value={sortBy}
       handleChange={handleChange}
