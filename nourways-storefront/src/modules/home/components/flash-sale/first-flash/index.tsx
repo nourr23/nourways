@@ -82,7 +82,7 @@ export const FirstFlash = ({
             {product.description}
           </div>
           <Link
-            href={product.handle ? product.handle : ""}
+            href={`/products/${product.handle ? product.handle : ""}`}
             className=" bg-secondary-500 rounded-3xl px-6 sm:px-8 py-2 mt-5"
           >
             <div className=" text-white text-sm sm:text-lg">Shop Now</div>

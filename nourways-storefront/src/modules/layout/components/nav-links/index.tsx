@@ -9,7 +9,6 @@ export const NavLinks = ({
   categories: ProductCategoryWithChildren[] | null
 }) => {
   const currentPath = usePathname()
-  console.log("regions", currentPath)
   return (
     <div className="flex gap-x-2 md:gap-x-8 items-center h-full">
       <LocalizedClientLink
@@ -44,6 +43,7 @@ export const NavLinks = ({
         <div className="absolute rounded min-w-full hidden px-3 bg-primary-500 py-4 group-hover:flex flex-col gap-y-3 left-0">
           {categories?.map((category: ProductCategoryWithChildren) => (
             <LocalizedClientLink
+              key={category.id}
               href={`/categories/${category.handle}`}
               className={`hover:text-secondary-500 text-white text-lg  whitespace-nowrap capitalize`}
               data-testid="nav-store-link"

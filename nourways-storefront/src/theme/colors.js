@@ -4,6 +4,7 @@ module.exports = {
     500: "#2d5356",
   },
   secondary: {
+    200:"#faf4e9",
     500: "#d09423",
   },
   grey: {

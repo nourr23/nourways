@@ -28,8 +28,6 @@ const getCategories = cache(
 export default async function Nav() {
   const regions = await listRegions().then((regions) => regions)
   const categories = await getCategories()
-  console.log("categories", categories && categories)
-
   return (
     <div className="sticky top-0 inset-x-0 z-50">
       <header className="absolute w-full h-20 mx-auto duration-200 bg-primary-500">

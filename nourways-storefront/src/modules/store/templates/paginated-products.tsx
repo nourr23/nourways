@@ -2,8 +2,9 @@ import { getProductsListWithSort, getRegion } from "@lib/data"
 import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import RefinementList from "@modules/store/components/refinement-list"
 
-const PRODUCT_LIMIT = 12
+const PRODUCT_LIMIT = 4
 
 type PaginatedProductsParams = {
   limit: number
@@ -23,7 +24,7 @@ export default async function PaginatedProducts({
   sortBy?: SortOptions
   page: number
   collectionId?: string
-  categoryId?: string
+  categoryId?: string[]
   productsIds?: string[]
   countryCode: string
 }) {
@@ -42,7 +43,7 @@ export default async function PaginatedProducts({
   }
 
   if (categoryId) {
-    queryParams["category_id"] = [categoryId]
+    queryParams["category_id"] = categoryId
   }
 
   if (productsIds) {
@@ -57,12 +58,41 @@ export default async function PaginatedProducts({
     sortBy,
     countryCode,
   })
-
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 
   return (
-    <>
-      <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8" data-testid="products-list">
+    <div>
+      <div className="flex w-full items-center justify-between h-[48px]">
+        <div className=" text-neutral-600 capitalize text-base md:text-xl  flex items-center">
+          {page == totalPages ? (
+            <>
+              {count % PRODUCT_LIMIT}{" "}
+              {count % PRODUCT_LIMIT > 1 ? "résultats" : "résultat"}
+            </>
+          ) : count > PRODUCT_LIMIT ? (
+            <>
+              1-{PRODUCT_LIMIT} sur {count} résultats
+            </>
+          ) : (
+            <>
+              {count} {count > 1 ? "résultats" : "résultat"}
+            </>
+          )}
+        </div>
+        <div className="">
+          <div className="block md:hidden">
+            <RefinementList
+              sortBy={sortBy || "created_at"}
+              data-testid="sort-by-container"
+            />
+          </div>
+        </div>
+      </div>
+
+      <ul
+        className="grid grid-cols-1 mt-5 w-full sm:grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
+        data-testid="products-list"
+      >
         {products.map((p) => {
           return (
             <li key={p.id}>
@@ -71,7 +101,13 @@ export default async function PaginatedProducts({
           )
         })}
       </ul>
-      {totalPages > 1 && <Pagination data-testid="product-pagination" page={page} totalPages={totalPages} />}
-    </>
+      {totalPages > 1 && (
+        <Pagination
+          data-testid="product-pagination"
+          page={page}
+          totalPages={totalPages}
+        />
+      )}
+    </div>
   )
 }
