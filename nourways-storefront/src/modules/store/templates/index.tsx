@@ -5,6 +5,7 @@ import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
 import PaginatedProducts from "./paginated-products"
+import { FilterContainer } from "@modules/common/components/filter-container"
 
 const StoreTemplate = ({
   sortBy,
@@ -18,19 +19,45 @@ const StoreTemplate = ({
   const pageNumber = page ? parseInt(page) : 1
 
   return (
-    <div className="flex flex-col small:flex-row small:items-start py-6 content-container" data-testid="category-container">
-      <RefinementList sortBy={sortBy || "created_at"} />
-      <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1 data-testid="store-page-title">All products</h1>
+    <div
+      className="flex flex-col px-0 small:items-start py-6 "
+      data-testid="category-container"
+    >
+      <div className="w-full bg-primary-500 relative h-[300px] flex justify-center items-center overflow-hidden">
+        <div className=" text-white font-bold text-3xl capitalize">
+          Produits
         </div>
-        <Suspense fallback={<SkeletonProductGrid />}>
-          <PaginatedProducts
-            sortBy={sortBy || "created_at"}
-            page={pageNumber}
-            countryCode={countryCode}
-          />
-        </Suspense>
+        <div className="absolute h-full w-full slider-bg opacity-[0.03] "></div>
+      </div>
+
+      <div className="py-10 px-3 w-full flex justify-center ">
+        <div className=" w-full max-w-[1160px]">
+          <div className="flex w-full gap-x-6">
+            <div className=" hidden md:block">
+              <div className=" text-neutral-900 capitalize text-2xl">
+                option de filtre
+              </div>
+              <div className="mt-5">
+                <FilterContainer title={"Trier Par"}>
+                  <RefinementList
+                    sortBy={sortBy || "created_at"}
+                    data-testid="sort-by-container"
+                  />
+                </FilterContainer>
+              </div>
+            </div>
+
+            <div className=" flex-1">
+              <Suspense fallback={<SkeletonProductGrid />}>
+                <PaginatedProducts
+                  sortBy={sortBy || "created_at"}
+                  page={pageNumber}
+                  countryCode={countryCode}
+                />
+              </Suspense>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -116,12 +116,12 @@ export function Pagination({
           page == 1
             ? "border-neutral-100 text-neutral-600"
             : " text-secondary-500 border-secondary-500 bg-secondary-200 "
-        } rounded-3xl  border text-base md:text-lg  px-4 flex items-center gap-2 py-1`}
+        } rounded-3xl  border text-sm md:text-base  px-4 flex items-center gap-2 py-1`}
       >
         <PiArrowLeftDuotone
           className="group-hover:rotate-45 ease-in-out duration-150"
           color={`${page == 1 ? "#525252 " : "#d09423"}`}
-          size={22}
+          size={20}
         />
         Previews
       </button>
@@ -135,13 +135,13 @@ export function Pagination({
           page == totalPages
             ? "border-neutral-100 text-neutral-600"
             : " text-secondary-500 border-secondary-500 bg-secondary-200 "
-        } rounded-3xl  border text-base md:text-lg  px-4 flex items-center gap-2 py-1`}
+        } rounded-3xl  border text-sm md:text-base  px-4 flex items-center gap-2 py-1`}
       >
         Next
         <PiArrowRightDuotone
           className="group-hover:rotate-45 ease-in-out duration-150"
           color={`${page == totalPages ? "#525252 " : "#d09423"}`}
-          size={22}
+          size={20}
         />
       </button>
     </div>

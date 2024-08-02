@@ -14,7 +14,7 @@ export default async function BannerSlider({
   return (
     <div className=" w-full relative flex justify-center bg-primary-500">
       <div className="absolute h-full w-full slider-bg opacity-[0.03] "></div>
-      <div className=" max-w-[1700px] relative lg:flex-row flex-col bg-office py-6 gap-y-4 lg:gap-y-0 lg:py-20 px-3 flex items-center min-h-[100vh] justify-center">
+      <div className=" max-w-[1700px] relative lg:flex-row flex-col bg-office py-6 gap-y-4 lg:gap-y-0 lg:py-20 pl-3 flex items-center min-h-[100vh] justify-center">
         <div className=" relative gap-y-4 lg:gap-y-8 pl-0 lg:pl-20 flex flex-col lg:items-start banner-first-part pr-2 items-center w-full lg:w-[55%]">
           <div className=" rounded-xl bg-[rgba(255,255,255,0.1)] px-6 py-1 text-white capitalize">
             website for furniture
