@@ -32,11 +32,11 @@ export const FirstFlash = ({
             {name}
           </div>
           <div className="text-neutral-500 text-sm sm:text-base pr-4 mt-3 text-center sm:text-left">
-            {pricing_item && pricing_item[0].price_list.description}
+            {pricing_item[0] && pricing_item[0].price_list.description}
           </div>
         </div>
 
-        {pricing_item && pricing_item[0].price_list.ends_at && (
+        {pricing_item[0] && pricing_item[0].price_list.ends_at && (
           <div>
             <div className=" w-full flex items-center justify-center gap-x-1">
               <LuClock12 color="#2d5356" size={30} />

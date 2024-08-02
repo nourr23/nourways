@@ -48,13 +48,13 @@ export default async function ProductPreview({
           <div className=" w-full flex justify-between items-center">
             <div>
               {cheapestPrice && Number(cheapestPrice.percentage_diff) > 0 && (
-                <div className=" h-[38px] min-w-[38px] flex justify-center items-center px-3 bg-primary-400 text-white rounded-3xl">
+                <div className=" h-[34px] min-w-[34px] flex justify-center items-center px-2 bg-primary-400 text-white rounded-3xl text-sm">
                   -{cheapestPrice.percentage_diff}%
                 </div>
               )}
             </div>
-            <button className=" outline-none border-none h-[38px] w-[38px] flex justify-center items-center bg-white rounded-[19px]">
-              <CiHeart color="#2d5356" size={34} />
+            <button className=" outline-none border-none h-[34px] w-[34px] flex justify-center items-center bg-white rounded-[19px]">
+              <CiHeart color="#2d5356" size={30} />
             </button>
           </div>
           <Image

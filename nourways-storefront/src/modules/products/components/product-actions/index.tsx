@@ -188,7 +188,7 @@ export default function ProductActions({
           </div>
         )}
 
-        <div className="mt-4">
+        <div className="">
           {/* {isAdding ? (
             <LoadingAction />
           ) : */}
@@ -223,7 +223,7 @@ export default function ProductActions({
               )}
             </button>
           ) : (
-            <div className=" flex gap-x-3">
+            <div className=" flex gap-x-3 mt-4">
               <Button
                 onClick={() => handleAddToCart("buy")}
                 disabled={!inStock || !variant || !!disabled || isAdding}
@@ -254,7 +254,7 @@ export default function ProductActions({
             </div>
           )}
         </div>
-        <MobileActions
+        {/* <MobileActions
           product={product}
           variant={variant}
           region={region}
@@ -265,7 +265,7 @@ export default function ProductActions({
           isAdding={isAdding}
           show={!inView}
           optionsDisabled={!!disabled || isAdding}
-        />
+        /> */}
       </div>
     </>
   )
