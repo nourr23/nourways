@@ -10,12 +10,12 @@ export const NavLinks = ({
 }) => {
   const currentPath = usePathname()
   return (
-    <div className="flex gap-x-2 md:gap-x-8 items-center h-full">
+    <div className="flex gap-x-2 md:gap-x-6 items-center h-full">
       <LocalizedClientLink
         href="/"
         className={` ${
           currentPath === "/tn" ? "border-b-secondary-500 border-b" : ""
-        } text-base lg:text-xl pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
+        } text-base lg:text-lg pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
         data-testid="nav-store-link"
       >
         Home
@@ -23,8 +23,10 @@ export const NavLinks = ({
       <LocalizedClientLink
         href="/store"
         className={` ${
-          currentPath === "/tn/store" ? "border-b-secondary-500 border-b" : ""
-        } text-base lg:text-xl pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
+          currentPath === "/tn/store" || currentPath.includes("/tn/products/")
+            ? "border-b-secondary-500 border-b"
+            : ""
+        } text-base lg:text-lg pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
         data-testid="nav-store-link"
       >
         Produits
@@ -35,7 +37,7 @@ export const NavLinks = ({
             currentPath.includes("/tn/categories")
               ? "border-b-secondary-500 border-b"
               : ""
-          } text-base lg:text-xl pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
+          } text-base lg:text-lg pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
           data-testid="nav-store-link"
         >
           catégories
@@ -45,7 +47,7 @@ export const NavLinks = ({
             <LocalizedClientLink
               key={category.id}
               href={`/categories/${category.handle}`}
-              className={`hover:text-secondary-500 text-white text-lg  whitespace-nowrap capitalize`}
+              className={`hover:text-secondary-500 text-white text-base  whitespace-nowrap capitalize`}
               data-testid="nav-store-link"
             >
               {category.name}
@@ -57,7 +59,7 @@ export const NavLinks = ({
         href="/aboutUs"
         className={` ${
           currentPath === "/tn/aboutus" ? "border-b-secondary-500 border-b" : ""
-        } text-base lg:text-xl pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
+        } text-base lg:text-lg pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
         data-testid="nav-store-link"
       >
         about us
@@ -68,7 +70,7 @@ export const NavLinks = ({
           currentPath === "/tn/contactus"
             ? "border-b-secondary-500 border-b"
             : ""
-        } text-base lg:text-xl pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
+        } text-base lg:text-lg pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
         data-testid="nav-store-link"
       >
         contact us

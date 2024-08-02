@@ -63,7 +63,7 @@ export default async function NewCollections({
   const collections = await getCategoriesWithProducts(countryCode, handle)
   return (
     <div className=" w-full flex justify-center py-6 px-3">
-      <div className=" w-full max-w-[1300px]">
+      <div className=" w-full max-w-[1160px]">
         <div className=" sm:w-full md:w-auto lg:w-full flex gap-4 flex-col lg:flex-row ">
           <div className=" flex flex-col gap-y-4 w-full lg:w-[55%]">
             {collections && (

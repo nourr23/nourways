@@ -28,10 +28,10 @@ export const FirstFlash = ({
     <div className="bg-grey-0 p-3 md:p-10 rounded-3xl flex min-w-[320px] flex-col w-full lg:w-[65%]">
       <div className="flex gap-y-3 sm:gap-3 flex-col sm:flex-row w-full justify-between">
         <div>
-          <div className=" text-xl sm:text-3xl capitalize text-center sm:text-left font-bold text-neutral-700">
+          <div className=" text-xl sm:text-xl capitalize text-center sm:text-left font-bold text-neutral-700">
             {name}
           </div>
-          <div className="text-neutral-500 text-sm sm:text-lg pr-4 mt-3 text-center sm:text-left">
+          <div className="text-neutral-500 text-sm sm:text-base pr-4 mt-3 text-center sm:text-left">
             {pricing_item && pricing_item[0].price_list.description}
           </div>
         </div>
@@ -40,7 +40,7 @@ export const FirstFlash = ({
           <div>
             <div className=" w-full flex items-center justify-center gap-x-1">
               <LuClock12 color="#2d5356" size={30} />
-              <div className=" text-primary-500 text-sm sm:text-lg">
+              <div className=" text-primary-500 text-sm sm:text-base">
                 End time
               </div>
             </div>
@@ -68,24 +68,24 @@ export const FirstFlash = ({
           <div className=" flex justify-start pl-3 sm:pl-0 sm:justify-center gap-5 items-center mt-4">
             {cheapestPrice && (
               <TrendingPrice
-                style={"text-neutral-700 font-bold text-base sm:text-lg"}
+                style={"text-neutral-700 font-bold text-base sm:text-base"}
                 price={cheapestPrice}
               />
             )}
           </div>
         </div>
         <div className="flex flex-col w-full sm:w-[50%] px-3 items-start">
-          <div className="font-bold text-lg capitalize text-primary-500">
+          <div className="font-bold text-base capitalize text-primary-500">
             {product.title}
           </div>
-          <div className="text-neutral-500 text-sm sm:text-lg mt-4">
+          <div className="text-neutral-500 text-sm sm:text-base mt-4">
             {product.description}
           </div>
           <Link
             href={`/products/${product.handle ? product.handle : ""}`}
             className=" bg-secondary-500 rounded-3xl px-6 sm:px-8 py-2 mt-5"
           >
-            <div className=" text-white text-sm sm:text-lg">Shop Now</div>
+            <div className=" text-white text-sm sm:text-base">Shop Now</div>
           </Link>
         </div>
       </div>

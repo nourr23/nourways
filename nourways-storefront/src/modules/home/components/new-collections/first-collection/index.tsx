@@ -20,7 +20,7 @@ export const FirstCollection = ({
       </div>
       <div className="  gap-y-2 md:gap-y-0 md:flex-row flex-col-reverse flex justify-between w-full ">
         <div className=" flex items-start flex-col gap-y-2 justify-center">
-          <div className=" flex gap-y-2 items-center w-full md:items-start flex-col">
+          <div className=" flex gap-y-1 items-center w-full md:items-start flex-col">
             {products.map((product: any, index: number) => (
               <button
                 key={index}
@@ -29,8 +29,8 @@ export const FirstCollection = ({
                   setActiveIndex(index)
                 }}
                 className={` ${
-                  product.id === activeProduct.id ? "font-bold" : ""
-                } bg-transparent text-neutral-500 capitalize`}
+                  product.id === activeProduct.id ? "font-bold text-base" : ""
+                } bg-transparent text-sm text-neutral-500 capitalize`}
               >
                 {product.title}
               </button>
@@ -41,7 +41,7 @@ export const FirstCollection = ({
             href={`/categories/${categories.handle}`}
             className="  mx-auto md:mx-0 flex items-end gap-x-1 mt-4 bg-transparent "
           >
-            <div className=" text-lg text-primary-500 capitalize underline ">
+            <div className=" text-base text-primary-500 capitalize underline ">
               Voir tout
             </div>
             <PiArrowRightDuotone
@@ -53,11 +53,11 @@ export const FirstCollection = ({
 
         <Link
           href={`products/${activeProduct.handle}`}
-          className=" h-[252px] overflow-hidden"
+          className=" h-[202px] overflow-hidden flex justify-center my-2 md:my-0 md:block"
         >
           <Image
             src={`${categories && activeProduct.thumbnail}`}
-            width={350}
+            width={320}
             height={252}
             objectFit="center"
             alt={activeProduct.title}

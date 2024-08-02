@@ -32,8 +32,8 @@ export const SecondCollection = ({
                     setActiveIndex(index)
                   }}
                   className={` ${
-                    product.id === activeProduct.id ? "font-bold" : ""
-                  } bg-transparent text-neutral-500 capitalize`}
+                    product.id === activeProduct.id ? "font-bold text-base" : ""
+                  } bg-transparent text-sm text-neutral-500 capitalize`}
                 >
                   {product.title}
                 </button>
@@ -44,7 +44,7 @@ export const SecondCollection = ({
               href={`/categories/${categories.handle}`}
               className="  mx-auto md:mx-0 flex items-end gap-x-1 mt-2 bg-transparent "
             >
-              <div className=" text-lg text-primary-500 capitalize underline ">
+              <div className=" text-base text-primary-500 capitalize underline ">
                 Voir tout
               </div>
               <PiArrowRightDuotone
@@ -55,11 +55,11 @@ export const SecondCollection = ({
           </div>
           <Link
             href={`products/${activeProduct.handle}`}
-            className=" h-[202px] overflow-hidden"
+            className=" h-[180px] overflow-hidden"
           >
             <Image
               src={`${categories && activeProduct.thumbnail}`}
-              width={120}
+              width={100}
               height={202}
               objectFit="center"
               alt={activeProduct.title}

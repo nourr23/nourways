@@ -36,7 +36,7 @@ export default async function ProductPreview({
   })
 
   return (
-    <div className=" mx-auto md:mx-none max-w-[340px] min-w-[214px]">
+    <div className=" mx-auto md:mx-0 max-w-[280px] min-w-[214px]">
       <LocalizedClientLink
         href={`/products/${productPreview.handle}`}
         className="group w-full"

@@ -67,7 +67,7 @@ export default async function FlashSale({
     <>
       {flashSale ? (
         <div className="py-6 px-3 w-full flex justify-center ">
-          <div className=" w-full max-w-[1300px]">
+          <div className=" w-full max-w-[1160px]">
             <div className="flex gap-4 lg:flex-row flex-col">
               {/* first section */}
               {flashSale[0].products[2] && (

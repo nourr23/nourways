@@ -1,34 +1,86 @@
+"use client"
 import { Image as MedusaImage } from "@medusajs/medusa"
 import { Container } from "@medusajs/ui"
 import Image from "next/image"
+import { useState } from "react"
+import { PiArrowLeftDuotone, PiArrowRightDuotone } from "react-icons/pi"
 
 type ImageGalleryProps = {
   images: MedusaImage[]
 }
 
 const ImageGallery = ({ images }: ImageGalleryProps) => {
+  const [mainImage, setMainImage] = useState(0)
   return (
-    <div className="flex items-start relative">
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
-        {images.map((image, index) => {
-          return (
-            <Container
-              key={image.id}
-              className="relative aspect-[29/34] w-full overflow-hidden bg-ui-bg-subtle"
-              id={image.id}
+    <div>
+      <div className="flex bg-grey-0 w-full rounded-3xl py-2 items-start relative justify-center ">
+        {images[0] && (
+          <div className="relative p-0 shadow-none flex items-center  bg-transparent min-h-[360px] w-[340px] overflow-hidden">
+            <Image
+              src={images[mainImage].url}
+              alt={`Product image `}
+              style={{
+                objectFit: "cover",
+              }}
+              width={340}
+              height={340}
+            />
+          </div>
+        )}
+
+        {images.length > 1 && (
+          <div className="absolute  w-full left-0 px-6 flex justify-between items-center bottom-4">
+            <button
+              onClick={() => setMainImage((prev) => prev - 1)}
+              disabled={mainImage == 0}
+              className={`${
+                mainImage == 0
+                  ? "border-neutral-100 text-neutral-600 bg-white"
+                  : " text-secondary-500 border-secondary-500 bg-secondary-500 "
+              } rounded-3xl  border text-base md:text-lg  px-5 flex items-center gap-2 py-2`}
             >
-              <Image
-                src={image.url}
-                priority={index <= 2 ? true : false}
-                className="absolute inset-0 rounded-rounded"
-                alt={`Product image ${index + 1}`}
-                fill
-                sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-                style={{
-                  objectFit: "cover",
-                }}
+              <PiArrowLeftDuotone
+                className="group-hover:rotate-45 ease-in-out duration-150"
+                color={`${mainImage == 0 ? "#d09423" : "#fff"}`}
+                size={20}
               />
-            </Container>
+            </button>
+            <button
+              onClick={() => setMainImage((prev) => prev + 1)}
+              disabled={mainImage == 2 || mainImage === images.length - 1}
+              className={`${
+                mainImage == 2 || mainImage === images.length - 1
+                  ? "border-neutral-100 text-neutral-600 bg-white"
+                  : " text-secondary-500 border-secondary-500 bg-secondary-500 "
+              } rounded-3xl  border text-base md:text-lg  px-5 flex items-center gap-2 py-2`}
+            >
+              <PiArrowRightDuotone
+                className="group-hover:rotate-45 ease-in-out duration-150"
+                color={`${
+                  mainImage == 2 || mainImage === images.length - 1
+                    ? "#d09423"
+                    : "#fff"
+                }`}
+                size={20}
+              />
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="flex w-full justify-between mt-4">
+        {images.slice(0, 3).map((image, index) => {
+          return (
+            <button
+              onClick={() => setMainImage(index)}
+              className={` ${
+                index === mainImage
+                  ? " border border-secondary-500"
+                  : "border-none"
+              } outline-none  bg-grey-0 relative aspect-square flex items-center justify-center rounded-xl overflow-hidden p-4 w-[32%] `}
+            >
+              <Image src={image.url} width={130} height={10} alt={image.id} />
+            </button>
           )
         })}
       </div>
