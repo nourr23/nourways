@@ -66,7 +66,7 @@ export default async function CategoryTemplate({
       </div>
 
       <div className="py-10 px-3 w-full flex justify-center ">
-        <div className=" w-full max-w-[1300px]">
+        <div className=" w-full max-w-[1160px]">
           <div className="my-4 flex gap-x-4 pb-2  pr-3 x-global-bg overflow-x-scroll w-full md:hidden">
             {category.category_children.length > 0 ? (
               <>

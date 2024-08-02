@@ -77,7 +77,7 @@ export const FeaturedCategoriesSlider = ({ featuredCategories, name }: any) => {
   }
 
   const SlideForward = () => {
-    let maxWidth = 1300
+    let maxWidth = 1160
     if (windowDimensions.width < maxWidth) {
       maxWidth = windowDimensions.width
     }

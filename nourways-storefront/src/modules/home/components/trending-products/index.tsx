@@ -69,7 +69,7 @@ export default async function TrendingProducts({
 
   return (
     <div className="py-6 px-3 w-full flex justify-center ">
-      <div className=" w-full max-w-[1300px]">
+      <div className=" w-full max-w-[1160px]">
         <div className="flex w-full justify-between mb-6 items-center">
           <div className=" text-xl sm:text-3xl text-neutral-700 font-bold capitalize">
             <div className=" mb-0 md:mb-3">{categories.name}</div>

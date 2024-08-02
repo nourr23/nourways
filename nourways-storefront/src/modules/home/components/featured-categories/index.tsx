@@ -38,7 +38,7 @@ export default async function FeaturedCategories({
 
   return (
     <div className=" py-6 px-3 w-full flex justify-center ">
-      <div className=" w-full max-w-[1300px]">
+      <div className=" w-full max-w-[1160px]">
         <FeaturedCategoriesSlider
           featuredCategories={featuredCategories}
           name={categories.name}

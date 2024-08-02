@@ -29,8 +29,8 @@ export const ThirdCollection = ({
                   setActiveIndex(index)
                 }}
                 className={` ${
-                  product.id === activeProduct.id ? "font-bold" : ""
-                } bg-transparent text-neutral-500 capitalize`}
+                  product.id === activeProduct.id ? "font-bold text-base" : ""
+                } bg-transparent text-sm text-neutral-500 capitalize`}
               >
                 {product.title}
               </button>
@@ -41,7 +41,7 @@ export const ThirdCollection = ({
             href={`/categories/${categories.handle}`}
             className="  mx-auto md:mx-0 flex items-end gap-x-1 mt-2 bg-transparent "
           >
-            <div className=" text-lg text-primary-500 capitalize underline ">
+            <div className=" text-base text-primary-500 capitalize underline ">
               Voir tout
             </div>
             <PiArrowRightDuotone
@@ -50,22 +50,22 @@ export const ThirdCollection = ({
             />
           </Link>
         </div>
-        <div className=" z-10 flex justify-end flex-1 relative min-h-[300px] lg:min-h-auto ">
+        <div className=" z-10 flex justify-end flex-1 relative min-h-[260px] lg:min-h-auto  ">
           <Link
             href={`products/${activeProduct.handle}`}
-            className=" h-auto relative md:absolute bottom-auto md:bottom-0"
+            className=" h-auto relative md:absolute bottom-auto md:bottom-0 "
           >
             <Image
               src={`${categories && activeProduct.thumbnail}`}
-              width={370}
-              height={492}
+              width={340}
+              height={472}
               objectFit="center"
               alt={activeProduct.title}
               className={`${
                 activeIndex % 2 == 0
                   ? "animate-fade-in-right"
                   : "animate-fade-in"
-              } w-[300px] md:w-[370px] `}
+              } w-[300px] md:w-[340px] `}
             />
           </Link>
         </div>
