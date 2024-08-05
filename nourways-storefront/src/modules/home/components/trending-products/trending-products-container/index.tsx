@@ -44,14 +44,16 @@ export const TrendingProductsContainer = ({
             <TrendingProductsItem key={item.id} item={item} region={region} />
           ))}
       </div>
-      <div className=" x-global-bg pb-4 lg:pb-0 w-full justify-between  overflow-x-scroll lg:overflow-x-hidden flex gap-x-2 my-4">
-        {trendingCategories[activeSubCategory].products.length > 3 &&
-          trendingCategories[activeSubCategory].products
+
+      {trendingCategories[activeSubCategory].products.length > 3 && (
+        <div className=" x-global-bg pb-4 lg:pb-0 w-full justify-between  overflow-x-scroll lg:overflow-x-hidden flex gap-x-2 my-4">
+          {trendingCategories[activeSubCategory].products
             .slice(3, 6)
             .map((item: any) => (
               <TrendingProductsItem key={item.id} item={item} region={region} />
             ))}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

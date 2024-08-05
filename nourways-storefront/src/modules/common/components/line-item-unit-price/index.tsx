@@ -22,13 +22,16 @@ const LineItemUnitPrice = ({
 
   return (
     <div className="flex flex-col text-ui-fg-muted justify-center h-full">
-      {hasReducedPrice && (
+      {hasReducedPrice && false && (
         <>
           <p>
             {style === "default" && (
               <span className="text-ui-fg-muted">Original: </span>
             )}
-            <span className="line-through" data-testid="product-unit-original-price">
+            <span
+              className="line-through"
+              data-testid="product-unit-original-price"
+            >
               {formatAmount({
                 amount: originalPrice,
                 region: region,
@@ -44,13 +47,13 @@ const LineItemUnitPrice = ({
         </>
       )}
       <span
-        className={clx("text-base-regular", {
-          "text-ui-fg-interactive": hasReducedPrice,
+        className={clx(" text-neutral-500 md:text-sm", {
+          "text-neutral-500 md:text-sm": hasReducedPrice,
         })}
         data-testid="product-unit-price"
       >
         {formatAmount({
-          amount: reducedPrice || item.unit_price || 0,
+          amount: reducedPrice / 10 || item.unit_price / 10 || 0,
           region: region,
           includeTaxes: false,
         })}
