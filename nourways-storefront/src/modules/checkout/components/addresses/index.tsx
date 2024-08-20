@@ -20,6 +20,7 @@ import { SubmitButton } from "../submit-button"
 import { useFormState } from "react-dom"
 import ErrorMessage from "../error-message"
 import compareAddresses from "@lib/util/compare-addresses"
+import { MdCheck } from "react-icons/md"
 
 const Addresses = ({
   cart,
@@ -56,7 +57,7 @@ const Addresses = ({
           level="h2"
           className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
         >
-          Shipping Address
+          Adresse de livraison
           {!isOpen && <CheckCircleSolid />}
         </Heading>
         {!isOpen && cart?.shipping_address && (
@@ -94,7 +95,9 @@ const Addresses = ({
                 <BillingAddress cart={cart} countryCode={countryCode} />
               </div>
             )}
-            <SubmitButton className="mt-6" data-testid="submit-address-button">Continue to delivery</SubmitButton>
+            <SubmitButton className="mt-6" data-testid="submit-address-button">
+              Continue to delivery
+            </SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
         </form>
@@ -103,10 +106,13 @@ const Addresses = ({
           <div className="text-small-regular">
             {cart && cart.shipping_address ? (
               <div className="flex items-start gap-x-8">
-                <div className="flex items-start gap-x-1 w-full">
-                  <div className="flex flex-col w-1/3" data-testid="shipping-address-summary">
-                    <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                      Shipping Address
+                <div className="flex flex-wrap items-start gap-2 justify-between w-full">
+                  <div
+                    className="flex flex-col 2xsmall:w-auto w-full "
+                    data-testid="shipping-address-summary"
+                  >
+                    <Text className=" text-neutral-900  font-semibold mb-1">
+                      Adresse de livraison
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
                       {cart.shipping_address.first_name}{" "}
@@ -120,13 +126,16 @@ const Addresses = ({
                       {cart.shipping_address.postal_code},{" "}
                       {cart.shipping_address.city}
                     </Text>
-                    <Text className="txt-medium text-ui-fg-subtle">
+                    {/* <Text className="txt-medium text-ui-fg-subtle">
                       {cart.shipping_address.country_code?.toUpperCase()}
-                    </Text>
+                    </Text> */}
                   </div>
 
-                  <div className="flex flex-col w-1/3 " data-testid="shipping-contact-summary">
-                    <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                  <div
+                    className="flex flex-col 2xsmall:w-auto w-full  "
+                    data-testid="shipping-contact-summary"
+                  >
+                    <Text className=" text-neutral-900 font-semibold mb-1">
                       Contact
                     </Text>
                     <Text className="txt-medium text-ui-fg-subtle">
@@ -137,7 +146,10 @@ const Addresses = ({
                     </Text>
                   </div>
 
-                  <div className="flex flex-col w-1/3" data-testid="billing-address-summary">
+                  {/* <div
+                    className="flex flex-col w-1/3"
+                    data-testid="billing-address-summary"
+                  >
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
                       Billing Address
                     </Text>
@@ -165,7 +177,7 @@ const Addresses = ({
                         </Text>
                       </>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ) : (
@@ -176,7 +188,12 @@ const Addresses = ({
           </div>
         </div>
       )}
-      <Divider className="mt-8" />
+      <div className="my-6 text-lg font-semibold text-secondary-500 flex items-center gap-x-3">
+        <div className=" w-4 aspect-square rounded bg-secondary-500 flex items-center justify-center">
+          <MdCheck size={18} color="white" />
+        </div>
+        Paiement à la livraison
+      </div>
     </div>
   )
 }

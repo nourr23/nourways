@@ -14,7 +14,7 @@ type SummaryProps = {
 
 const Summary = ({ cart }: SummaryProps) => {
   return (
-    <div className=" min-w-[238px] flex flex-col gap-y-4 flex-1 rounded-lg overflow-hidden border border-grey-0 bg-grey-0">
+    <div className=" lg:max-w-[360px] min-w-[278px] flex flex-col gap-y-4  rounded-lg overflow-hidden border border-grey-0 bg-grey-0">
       <Heading
         level="h2"
         className="text-sm bg-primary-500 text-white h-[48px] flex items-center pl-3"

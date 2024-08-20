@@ -1,14 +1,11 @@
 import { Order } from "@medusajs/medusa"
 import { Heading } from "@medusajs/ui"
 import { cookies } from "next/headers"
-
-import CartTotals from "@modules/common/components/cart-totals"
-import Help from "@modules/order/components/help"
-import Items from "@modules/order/components/items"
 import OnboardingCta from "@modules/order/components/onboarding-cta"
-import OrderDetails from "@modules/order/components/order-details"
-import ShippingDetails from "@modules/order/components/shipping-details"
-import PaymentDetails from "@modules/order/components/payment-details"
+import { Header } from "@modules/common/components/header"
+import order_complete from "../../../../public/order-complete.png"
+import Image from "next/image"
+import { OrderCompleteSummary } from "./order-complete-summary"
 
 type OrderCompletedTemplateProps = {
   order: Order
@@ -20,28 +17,57 @@ export default function OrderCompletedTemplate({
   const isOnboarding = cookies().get("_medusa_onboarding")?.value === "true"
 
   return (
-    <div className="py-6 min-h-[calc(100vh-64px)]">
-      <div className="content-container flex flex-col justify-center items-center gap-y-10 max-w-4xl h-full w-full">
-        {isOnboarding && <OnboardingCta orderId={order.id} />}
-        <div className="flex flex-col gap-4 max-w-4xl h-full bg-white w-full py-10" data-testid="order-complete-container">
-          <Heading
-            level="h1"
-            className="flex flex-col gap-y-3 text-ui-fg-base text-3xl mb-4"
-          >
-            <span>Thank you!</span>
-            <span>Your order was placed successfully.</span>
-          </Heading>
-          <OrderDetails order={order} />
-          <Heading level="h2" className="flex flex-row text-3xl-regular">
-            Summary
-          </Heading>
-          <Items items={order.items} region={order.region} />
-          <CartTotals data={order} />
-          <ShippingDetails order={order} />
-          <PaymentDetails order={order} />
-          <Help />
+    <div className="flex flex-col px-0 small:items-start ">
+      <Header title="Commande complète" />
+      <div className=" py-5 xsmall:py-10 px-3 w-full flex flex-col items-center ">
+        {/* <div className=" w-full max-w-[1160px]">
+        </div> */}
+        <div className=" xsmall:w-[386px] xsmall:h-[193px] w-[340px] h-[170px]">
+          <Image
+            src={order_complete}
+            width={386}
+            height={193}
+            alt={"order complete"}
+            objectFit="cover"
+          />
+        </div>
+
+        <Heading
+          level="h1"
+          className="flex flex-col gap-y-3 text-ui-fg-base text-3xl my-4"
+        >
+          <span>Merci pour votre achat!</span>
+        </Heading>
+        <div className=" text-neutral-600 text-base font-semibold">
+          Votre commande a été traitée avec succès !
+        </div>
+        <div className=" text-neutral-600 text-base font-semibold">
+          Voici les détails
+        </div>
+        <div className=" max-w-[500px] w-full">
+          <OrderCompleteSummary order={order} />
+          <div className="xsmall:mt-10 mt-6">
+            <div className=" font-bold text-xl text-neutral-900">
+              Statut de la commande
+            </div>
+            <div className=" text-neutral-500 mt-2 text-sm font-semibold w-full">
+              Votre commande est maintenant terminée et sera expédiée. Vous
+              recevrez un e-mail de confirmation ou un appel téléphonique
+              contenant des informations de suivi une fois vos articles
+              expédiés.
+            </div>
+            <div className=" text-neutral-500 mt-2 text-sm font-semibold w-full">
+              Merci d'avoir effectué vos achats chez nous ! Si vous avez des
+              questions ou des préoccupations, n'hésitez pas à contacter notre
+              équipe de support client à email : email@email.com
+              {/* to change  */}
+            </div>
+          </div>
         </div>
       </div>
+      {/* <div className="content-container flex flex-col justify-center items-center gap-y-10 max-w-4xl h-full w-full">
+        {isOnboarding && <OnboardingCta orderId={order.id} />}
+      </div> */}
     </div>
   )
 }

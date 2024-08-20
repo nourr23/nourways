@@ -20,13 +20,11 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
   "data-testid": dataTestId,
 }) => {
   const notReady =
-    !cart ||
-    !cart.shipping_address ||
-    !cart.billing_address ||
-    !cart.email ||
-    cart.shipping_methods.length < 1
-      ? true
-      : false
+    !cart || !cart.shipping_address || !cart.billing_address || !cart.email
+  ||
+  cart.shipping_methods.length < 1
+    ? true
+    : false
 
   const paidByGiftcard =
     cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
@@ -76,8 +74,9 @@ const GiftCardPaymentButton = () => {
       onClick={handleOrder}
       isLoading={submitting}
       data-testid="submit-order-button"
+      className="  px-6 sm:px-12 rounded-3xl h-10 bg-secondary-500 hover:bg-secondary-500 !border-0 shadow-none !outline-none"
     >
-      Place order
+      Confirmer la commande
     </Button>
   )
 }
@@ -173,8 +172,9 @@ const StripePaymentButton = ({
         size="large"
         isLoading={submitting}
         data-testid={dataTestId}
+        className=" px-6 sm:px-12 rounded-3xl h-10 bg-secondary-500 hover:bg-secondary-500 !border-0 shadow-none !outline-none"
       >
-        Place order
+        Confirmer la commande
       </Button>
       <ErrorMessage
         error={errorMessage}
@@ -274,8 +274,9 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         onClick={handlePayment}
         size="large"
         data-testid="submit-order-button"
+        className=" px-6 sm:px-12 rounded-3xl h-10 bg-secondary-500 hover:bg-secondary-500 !border-0 shadow-none !outline-none"
       >
-        Place order
+        Confirmer la commande
       </Button>
       <ErrorMessage
         error={errorMessage}

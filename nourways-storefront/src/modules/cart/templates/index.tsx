@@ -5,6 +5,7 @@ import { CartWithCheckoutStep } from "types/global"
 import SignInPrompt from "../components/sign-in-prompt"
 import Divider from "@modules/common/components/divider"
 import { Customer, EmptyQueryParams } from "@medusajs/medusa"
+import { Header } from "@modules/common/components/header"
 
 const CartTemplate = ({
   cart,
@@ -19,17 +20,12 @@ const CartTemplate = ({
         className="flex flex-col px-0 small:items-start py-6 "
         data-testid="product-container"
       >
-        <div className="w-full bg-primary-500 relative h-[200px] md:h-[300px] flex justify-center items-center overflow-hidden">
-          <div className=" text-white font-bold text-xl md:text-3xl capitalize">
-            Panier
-          </div>
-          <div className="absolute h-full w-full slider-bg opacity-[0.03] "></div>
-        </div>
+        <Header title="Panier"  />
 
         <div className="py-10 px-3 w-full flex justify-center ">
           <div className=" w-full max-w-[1160px]">
             {cart?.items.length ? (
-              <div className="flex w-full md:items-start items-center justify-between gap-x-4 mt-4 gap-y-4 flex-col md:flex-row">
+              <div className="flex w-full md:items-start items-center justify-center  gap-x-10 mt-4 gap-y-4 flex-col md:flex-wrap md:flex-row">
                 <ItemsTemplate region={cart?.region} items={cart?.items} />
                 {cart && cart.region && (
                   <>
@@ -44,7 +40,7 @@ const CartTemplate = ({
         </div>
       </div>
 
-      <div className="py-12">
+      {/* <div className="py-12">
         <div className="content-container" data-testid="cart-container">
           {cart?.items.length ? (
             <div className="grid grid-cols-1 small:grid-cols-[1fr_360px] gap-x-40">
@@ -55,7 +51,7 @@ const CartTemplate = ({
                     <Divider />
                   </>
                 )}
-                {/* <ItemsTemplate region={cart?.region} items={cart?.items} /> */}
+                <ItemsTemplate region={cart?.region} items={cart?.items} />
               </div>
               <div className="relative">
                 <div className="flex flex-col gap-y-8 sticky top-12">
@@ -75,7 +71,7 @@ const CartTemplate = ({
             </div>
           )}
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

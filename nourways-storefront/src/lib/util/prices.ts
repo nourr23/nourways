@@ -226,7 +226,7 @@ const convertToDecimal = (amount: number, region: RegionInfo) => {
     ? 1
     : 100
 
-  return Math.floor(amount) / divisor
+  return Math.floor(amount) / divisor / 10
 }
 
 const getTaxRate = (region?: RegionInfo) => {

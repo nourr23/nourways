@@ -11,7 +11,7 @@ type ItemsTemplateProps = {
 
 const ItemsTemplate = ({ items, region }: ItemsTemplateProps) => {
   return (
-    <div className=" x-global-bg overflow-x-scroll max-w-full px-2 sm:overflow-x-hidden pb-2">
+    <div className=" x-global-bg md:-1 overflow-x-scroll max-w-full px-2 sm:overflow-x-hidden pb-2">
       <div className=" min-w-[503px] sm:min-w-0">
         <Table className=" rounded-lg overflow-hidden  ">
           <Table.Header className="border-t-0">
