@@ -20,11 +20,13 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
   "data-testid": dataTestId,
 }) => {
   const notReady =
-    !cart || !cart.shipping_address || !cart.billing_address || !cart.email
-  ||
-  cart.shipping_methods.length < 1
-    ? true
-    : false
+    !cart ||
+    !cart.shipping_address ||
+    !cart.billing_address ||
+    !cart.email ||
+    cart.shipping_methods.length < 1
+      ? true
+      : false
 
   const paidByGiftcard =
     cart?.gift_cards && cart?.gift_cards?.length > 0 && cart?.total === 0
@@ -35,7 +37,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
 
   const paymentSession = cart.payment_session as PaymentSession
 
-  switch (paymentSession.provider_id) {
+  switch (paymentSession?.provider_id) {
     case "stripe":
       return (
         <StripePaymentButton

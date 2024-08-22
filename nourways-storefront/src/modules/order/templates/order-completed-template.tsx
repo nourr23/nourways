@@ -51,10 +51,13 @@ export default function OrderCompletedTemplate({
               Statut de la commande
             </div>
             <div className=" text-neutral-500 mt-2 text-sm font-semibold w-full">
-              Votre commande est maintenant terminée et sera expédiée. Vous
-              recevrez un e-mail de confirmation ou un appel téléphonique
-              contenant des informations de suivi une fois vos articles
-              expédiés.
+              {order.fulfillment_status === "shipped"
+                ? "Votre commande a été livrée avec succès"
+                : order.fulfillment_status === "not_fulfilled"
+                ? "Votre commande est maintenant terminée et sera expédiée. Vous recevrez un e-mail de confirmation ou un appel téléphonique contenant des informations de suivi une fois vos articles expédiés."
+                : order.fulfillment_status === "canceled"
+                ? "Votre commande a été annulée"
+                : ""}
             </div>
             <div className=" text-neutral-500 mt-2 text-sm font-semibold w-full">
               Merci d'avoir effectué vos achats chez nous ! Si vous avez des
