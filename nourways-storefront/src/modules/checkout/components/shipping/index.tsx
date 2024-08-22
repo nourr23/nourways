@@ -76,7 +76,7 @@ const Shipping: React.FC<ShippingProps> = ({
             }
           )}
         >
-          Delivery
+          Livraison
           {!isOpen && cart.shipping_methods.length > 0 && <CheckCircleSolid />}
         </Heading>
         {!isOpen &&
@@ -149,7 +149,7 @@ const Shipping: React.FC<ShippingProps> = ({
             data-testid="delivery-option-error-message"
           />
 
-          <Button
+          {/* <Button
             size="large"
             className="mt-6"
             onClick={handleSubmit}
@@ -158,7 +158,7 @@ const Shipping: React.FC<ShippingProps> = ({
             data-testid="submit-delivery-option-button"
           >
             Continue to payment
-          </Button>
+          </Button> */}
         </div>
       ) : (
         <div>
@@ -184,7 +184,6 @@ const Shipping: React.FC<ShippingProps> = ({
           </div>
         </div>
       )}
-      <Divider className="mt-8" />
     </div>
   )
 }

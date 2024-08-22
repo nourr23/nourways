@@ -55,13 +55,13 @@ export default async function CheckoutForm() {
           />
         </div>
 
-        <div>
+        {/* <div>
           <Payment cart={cart} />
-        </div>
+        </div> */}
 
-        <div>
+        {/* <div>
           <Review cart={cart} />
-        </div>
+        </div> */}
       </div>
     </div>
   )

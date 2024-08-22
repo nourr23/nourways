@@ -18,6 +18,7 @@ import TrendingPrice from "../components/trending-product/price"
 import { FaStar } from "react-icons/fa6"
 import repeat from "@lib/util/repeat"
 import { MdCheck } from "react-icons/md"
+import { Header } from "@modules/common/components/header"
 
 type ProductTemplateProps = {
   product: PricedProduct
@@ -46,12 +47,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         className="flex flex-col px-0 small:items-start py-6 "
         data-testid="product-container"
       >
-        <div className="w-full bg-primary-500 relative h-[200px] md:h-[300px] flex justify-center items-center overflow-hidden">
-          <div className=" text-white font-bold text-xl md:text-3xl capitalize">
-            Products/{product.title}
-          </div>
-          <div className="absolute h-full w-full slider-bg opacity-[0.03] "></div>
-        </div>
+        <Header title={`Products/${product.title}`} />
 
         <div className="py-10 px-3 w-full flex justify-center ">
           <div className=" w-full max-w-[1160px]">
@@ -109,7 +105,9 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
                     <div className="rounded-base border border-primary-500 h-[14px] w-[14px] flex justify-center items-center">
                       <MdCheck size={10} className=" text-primary-500" />
                     </div>
-                    <div className=" text-primary-500  font-semibold">En stock</div>
+                    <div className=" text-primary-500  font-semibold">
+                      En stock
+                    </div>
                     {/* <div className="mx-1 h-3 w-[1px] bg-neutral-500"></div>
                     <div></div> */}
                   </div>

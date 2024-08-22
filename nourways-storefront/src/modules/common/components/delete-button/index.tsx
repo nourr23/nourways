@@ -1,6 +1,7 @@
 import { Spinner, Trash } from "@medusajs/icons"
 import { clx } from "@medusajs/ui"
 import { useState } from "react"
+import { IoCloseCircleOutline } from "react-icons/io5"
 
 import { deleteLineItem } from "@modules/cart/actions"
 
@@ -33,7 +34,11 @@ const DeleteButton = ({
         className="flex gap-x-1 text-ui-fg-subtle hover:text-ui-fg-base cursor-pointer"
         onClick={() => handleDelete(id)}
       >
-        {isDeleting ? <Spinner className="animate-spin" /> : <Trash />}
+        {isDeleting ? (
+          <Spinner className="animate-spin" />
+        ) : (
+          <IoCloseCircleOutline className=" text-neutral-500" size={26} />
+        )}
         <span>{children}</span>
       </button>
     </div>

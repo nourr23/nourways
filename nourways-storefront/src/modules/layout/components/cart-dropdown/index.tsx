@@ -104,7 +104,7 @@ const CartDropdown = ({
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Cart</h3>
+              <h3 className="text-large-semi">Panier</h3>
             </div>
             {cartState && cartState.items?.length ? (
               <>
@@ -146,7 +146,7 @@ const CartDropdown = ({
                                   data-testid="cart-item-quantity"
                                   data-value={item.quantity}
                                 >
-                                  Quantity: {item.quantity}
+                                  Quantité: {item.quantity}
                                 </span>
                               </div>
                               <div className="flex justify-end">
@@ -163,7 +163,7 @@ const CartDropdown = ({
                             className="mt-1"
                             data-testid="cart-item-remove-button"
                           >
-                            Remove
+                            Supprimer
                           </DeleteButton>
                         </div>
                       </div>
@@ -173,7 +173,7 @@ const CartDropdown = ({
                   <div className="flex items-center justify-between">
                     <span className="text-ui-fg-base font-semibold">
                       Subtotal{" "}
-                      <span className="font-normal">(excl. taxes)</span>
+                      <span className="font-normal">(excl. impôts)</span>
                     </span>
                     <span
                       className="text-large-semi"
@@ -189,11 +189,11 @@ const CartDropdown = ({
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
                     <Button
-                      className="w-full"
+                      className="w-full bg-secondary-500 hover:bg-secondary-500 shadow-none !border-none !outline-none rounded-full"
                       size="large"
                       data-testid="go-to-cart-button"
                     >
-                      Go to cart
+                      Aller au panier
                     </Button>
                   </LocalizedClientLink>
                 </div>

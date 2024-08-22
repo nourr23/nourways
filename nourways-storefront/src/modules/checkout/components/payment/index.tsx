@@ -199,7 +199,7 @@ const Payment = ({
             data-testid="payment-method-error-message"
           />
 
-          <Button
+          {/* <Button
             size="large"
             className="mt-6"
             onClick={handleSubmit}
@@ -211,7 +211,7 @@ const Payment = ({
             data-testid="submit-payment-button"
           >
             Continue to review
-          </Button>
+          </Button> */}
         </div>
 
         <div className={isOpen ? "hidden" : "block"}>

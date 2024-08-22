@@ -14,6 +14,7 @@ import Spinner from "@modules/common/icons/spinner"
 import { useState } from "react"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { ProductQuantity } from "@modules/common/components/products-quantity"
 
 type ItemProps = {
   item: Omit<LineItem, "beforeInsert">
@@ -46,66 +47,63 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
   }
 
   return (
-    <Table.Row className="w-full" data-testid="product-row">
-      <Table.Cell className="!pl-0 p-4 w-24">
+    <Table.Row
+      className="w-full bg-grey-0 !border-b-0"
+      data-testid="product-row"
+    >
+      <Table.Cell className="!pl-3 p-3 w-24">
         <LocalizedClientLink
           href={`/products/${handle}`}
           className={clx("flex", {
             "w-16": type === "preview",
-            "small:w-24 w-12": type === "full",
+            "w-[66px] h-[66px]": type === "full",
           })}
         >
-          <Thumbnail thumbnail={item.thumbnail} size="square" />
+          <Thumbnail thumbnail={item.thumbnail} size="extra-small" />
         </LocalizedClientLink>
       </Table.Cell>
 
       <Table.Cell className="text-left">
-        <Text className="txt-medium-plus text-ui-fg-base" data-testid="product-title">{item.title}</Text>
+        <Text
+          className=" text-neutral-500 font-semibold text-xs xs:text-sm capitalize"
+          data-testid="product-title"
+        >
+          {item.title}
+        </Text>
         <LineItemOptions variant={item.variant} data-testid="product-variant" />
       </Table.Cell>
 
       {type === "full" && (
+        <Table.Cell className="hidden sm:table-cell">
+          <LineItemUnitPrice item={item} region={region} style="tight" />
+        </Table.Cell>
+      )}
+
+      {type === "full" && (
         <Table.Cell>
           <div className="flex gap-2 items-center w-28">
-            <DeleteButton id={item.id} data-testid="product-delete-button" />
-            <CartItemSelect
-              value={item.quantity}
-              onChange={(value) => changeQuantity(parseInt(value.target.value))}
-              className="w-14 h-10 p-4"
-              data-testid="product-select-button"
-            >
-              {Array.from(
-                {
-                  length: Math.min(
-                    item.variant.inventory_quantity > 0
-                      ? item.variant.inventory_quantity
-                      : 10,
-                    10
-                  ),
-                },
-                (_, i) => (
-                  <option value={i + 1} key={i}>
-                    {i + 1}
-                  </option>
-                )
-              )}
-            </CartItemSelect>
+            <ProductQuantity
+              style={" bg-white"}
+              buttonsStyle=" !bg-grey-0"
+              maxQuantity={
+                item.variant.inventory_quantity > 0
+                  ? item.variant.inventory_quantity
+                  : 10
+              }
+              counter={item.quantity}
+              setCounter={(c: number) => changeQuantity(c)}
+            />
             {updating && <Spinner />}
           </div>
           <ErrorMessage error={error} data-testid="product-error-message" />
         </Table.Cell>
       )}
 
-      {type === "full" && (
-        <Table.Cell className="hidden small:table-cell">
-          <LineItemUnitPrice item={item} region={region} style="tight" />
-        </Table.Cell>
-      )}
-
-      <Table.Cell className="!pr-0">
+      <Table.Cell className="!pr-3">
         <span
-          className={clx("!pr-0", {
-            "flex flex-col items-end h-full justify-center": type === "preview",
+          className={clx("!pr-0 items-start", {
+            "flex flex-col items-start h-full justify-center":
+              type === "preview",
           })}
         >
           {type === "preview" && (
@@ -116,6 +114,9 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
           )}
           <LineItemPrice item={item} region={region} style="tight" />
         </span>
+      </Table.Cell>
+      <Table.Cell className=" p-4 !pr-4">
+        <DeleteButton id={item.id} data-testid="product-delete-button" />
       </Table.Cell>
     </Table.Row>
   )

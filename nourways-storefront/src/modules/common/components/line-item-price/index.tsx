@@ -21,15 +21,18 @@ const LineItemPrice = ({
   const hasReducedPrice = (item.total || 0) < originalPrice
 
   return (
-    <div className="flex flex-col gap-x-2 text-ui-fg-subtle items-end">
+    <div className="flex flex-col gap-x-2 text-ui-fg-subtle items-start">
       <div className="text-left">
-        {hasReducedPrice && (
+        {hasReducedPrice && false && (
           <>
             <p>
               {style === "default" && (
                 <span className="text-ui-fg-subtle">Original: </span>
               )}
-              <span className="line-through text-ui-fg-muted" data-testid="product-original-price">
+              <span
+                className="line-through text-ui-fg-muted"
+                data-testid="product-original-price"
+              >
                 {formatAmount({
                   amount: originalPrice,
                   region: region,
@@ -45,13 +48,13 @@ const LineItemPrice = ({
           </>
         )}
         <span
-          className={clx("text-base-regular", {
-            "text-ui-fg-interactive": hasReducedPrice,
+          className={clx("text-neutral-500 md:text-sm", {
+            "text-neutral-500 md:text-sm": hasReducedPrice,
           })}
           data-testid="product-price"
         >
           {formatAmount({
-            amount: item.total || 0,
+            amount: (item.total && item.total / 10) || 0,
             region: region,
             includeTaxes: false,
           })}
