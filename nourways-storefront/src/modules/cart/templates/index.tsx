@@ -17,10 +17,10 @@ const CartTemplate = ({
   return (
     <>
       <div
-        className="flex flex-col px-0 small:items-start py-6 "
+        className="flex flex-col px-0 small:items-start "
         data-testid="product-container"
       >
-        <Header title="Panier"  />
+        <Header title="Panier" />
 
         <div className="py-10 px-3 w-full flex justify-center ">
           <div className=" w-full max-w-[1160px]">

@@ -65,9 +65,10 @@ export const NavLinks = ({
         about us
       </LocalizedClientLink>
       <LocalizedClientLink
-        href="/contactUs"
+        href="/contact-us"
         className={` ${
-          currentPath === "/tn/contactus"
+          currentPath === "/tn/contact-us" ||
+          currentPath.includes("/tn/contact-us/")
             ? "border-b-secondary-500 border-b"
             : ""
         } text-base lg:text-lg pb-1 px-1 hover:text-secondary-500 capitalize text-white`}
