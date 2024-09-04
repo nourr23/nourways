@@ -287,6 +287,7 @@ export async function createCustomer(data: StorePostCustomersReq) {
     .catch((err) => medusaError(err))
 }
 
+//here
 export async function updateCustomer(data: StorePostCustomersCustomerReq) {
   const headers = getMedusaHeaders(["customer"])
 

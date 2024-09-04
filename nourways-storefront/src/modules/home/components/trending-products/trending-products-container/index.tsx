@@ -7,10 +7,12 @@ export const TrendingProductsContainer = ({
   trendingCategories,
   region,
   countryCode,
+  wishlist,
 }: {
   trendingCategories: any
   region: Region
   countryCode: string
+  wishlist?: Array<string>
 }) => {
   const [activeSubCategory, setActiveSubCategory] = useState(0)
   return (
@@ -41,7 +43,12 @@ export const TrendingProductsContainer = ({
         {trendingCategories[activeSubCategory].products
           .slice(0, 3)
           .map((item: any) => (
-            <TrendingProductsItem key={item.id} item={item} region={region} />
+            <TrendingProductsItem
+              wishlist={wishlist}
+              key={item.id}
+              item={item}
+              region={region}
+            />
           ))}
       </div>
 
@@ -50,7 +57,12 @@ export const TrendingProductsContainer = ({
           {trendingCategories[activeSubCategory].products
             .slice(3, 6)
             .map((item: any) => (
-              <TrendingProductsItem key={item.id} item={item} region={region} />
+              <TrendingProductsItem
+                wishlist={wishlist}
+                key={item.id}
+                item={item}
+                region={region}
+              />
             ))}
         </div>
       )}

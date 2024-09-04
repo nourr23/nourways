@@ -8,11 +8,13 @@ import ProductPreview from "../product-preview"
 type RelatedProductsProps = {
   product: PricedProduct
   countryCode: string
+  wishlist?: Array<string>
 }
 
 export default async function RelatedProducts({
   product,
   countryCode,
+  wishlist,
 }: RelatedProductsProps) {
   const region = await getRegion(countryCode)
 
@@ -69,7 +71,11 @@ export default async function RelatedProducts({
       <ul className="grid grid-cols-1 sm:grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
         {productPreviews.slice(0, 8).map((productPreview) => (
           <li key={productPreview.id}>
-            <ProductPreview region={region} productPreview={productPreview} />
+            <ProductPreview
+              region={region}
+              productPreview={productPreview}
+              wishlist={wishlist}
+            />
           </li>
         ))}
       </ul>

@@ -24,12 +24,14 @@ type ProductTemplateProps = {
   product: PricedProduct
   region: Region
   countryCode: string
+  wishlist?: Array<string>
 }
 
 const ProductTemplate: React.FC<ProductTemplateProps> = ({
   product,
   region,
   countryCode,
+  wishlist,
 }) => {
   if (!product || !product.id) {
     return notFound()
@@ -108,8 +110,6 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
                     <div className=" text-primary-500  font-semibold">
                       En stock
                     </div>
-                    {/* <div className="mx-1 h-3 w-[1px] bg-neutral-500"></div>
-                    <div></div> */}
                   </div>
                 </div>
 
@@ -121,10 +121,15 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
                         disabled={true}
                         product={product}
                         region={region}
+                        wishlist={wishlist}
                       />
                     }
                   >
-                    <ProductActionsWrapper id={product.id} region={region} />
+                    <ProductActionsWrapper
+                      id={product.id}
+                      region={region}
+                      wishlist={wishlist}
+                    />
                   </Suspense>
                 </div>
               </div>
@@ -135,7 +140,11 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
               data-testid="related-products-container"
             >
               <Suspense fallback={<SkeletonRelatedProducts />}>
-                <RelatedProducts product={product} countryCode={countryCode} />
+                <RelatedProducts
+                  wishlist={wishlist}
+                  product={product}
+                  countryCode={countryCode}
+                />
               </Suspense>
             </div>
           </div>

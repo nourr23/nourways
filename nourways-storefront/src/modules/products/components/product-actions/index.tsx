@@ -18,12 +18,14 @@ import MobileActions from "../mobile-actions"
 import ProductPrice from "../product-price"
 import { LoadingAction } from "@modules/common/components/loading"
 import { ProductQuantity } from "@modules/common/components/products-quantity"
+import { WishListButton } from "../wishlist-button"
 
 type ProductActionsProps = {
   product: PricedProduct
   region: Region
   disabled?: boolean
   buttonType: "icon" | "icon-outline" | "normal"
+  wishlist?: Array<string>
 }
 
 export type PriceType = {
@@ -38,6 +40,7 @@ export default function ProductActions({
   region,
   disabled,
   buttonType,
+  wishlist,
 }: ProductActionsProps) {
   const router = useRouter()
   const [options, setOptions] = useState<Record<string, string>>({})
@@ -248,9 +251,13 @@ export default function ProductActions({
                   ? "En rupture de stock"
                   : "Ajouter au panier"}
               </Button>
-              <button className="h-[40px] border border-neutral-300 aspect-square flex items-center justify-center rounded-full ">
-                <CiHeart size={24} className=" text-neutral-500" />
-              </button>
+              {product.id && (
+                <WishListButton
+                  product_id={product.id}
+                  wishlist={wishlist}
+                  product_details={true}
+                />
+              )}
             </div>
           )}
         </div>

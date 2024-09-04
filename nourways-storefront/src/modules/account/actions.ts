@@ -76,6 +76,20 @@ export async function updateCustomerName(
   }
 }
 
+export async function manageWishlist(wishlist: Array<string>) {
+  const customer = {
+    metadata: { wich_list: wishlist },
+  }
+  try {
+    await updateCustomer(customer).then(() => {
+      revalidateTag("customer")
+    })
+    return { success: true, error: null }
+  } catch (error: any) {
+    return { success: false, error: error.toString() }
+  }
+}
+
 export async function updateCustomerEmail(
   _currentState: Record<string, unknown>,
   formData: FormData
