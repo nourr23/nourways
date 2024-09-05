@@ -6,13 +6,16 @@ import { getProductPrice } from "@lib/util/get-product-price"
 import TrendingPrice from "./price"
 import Link from "next/link"
 import ProductActions from "../product-actions"
+import { WishListButton } from "../wishlist-button"
 
 export default function TrendingProductsItem({
   item,
   region,
+  wishlist,
 }: {
   item: any
   region: Region
+  wishlist?: Array<string>
 }) {
   const { cheapestPrice } = getProductPrice({
     product: item,
@@ -20,26 +23,31 @@ export default function TrendingProductsItem({
   })
 
   return (
-    <div className=" bg-grey-0 min-w-[320px] max-w-[380px] w-[32%]  flex flex-col justify-between mt-3 rounded-3xl overflow-hidden">
+    <div className=" bg-grey-0 min-w-[300px] max-w-[360px] w-[30%]  flex flex-col justify-between mt-3 rounded-3xl overflow-hidden">
       <div className="p-5 w-full">
         <div className=" w-full flex justify-between items-center">
           <div>
             {cheapestPrice && (
-              <div className=" h-[45px] flex justify-center items-center px-3 bg-primary-400 text-white rounded-3xl">
+              <div className=" h-[40px] flex justify-center items-center px-3 bg-primary-400 text-white rounded-3xl">
                 -{cheapestPrice.percentage_diff}%
               </div>
             )}
           </div>
-          <button className=" outline-none border-none h-[45px] w-[45px] flex justify-center items-center bg-white rounded-[23px]">
+          {/* <button className=" outline-none border-none h-[45px] w-[45px] flex justify-center items-center bg-white rounded-[23px]">
             <CiHeart color="#2d5356" size={36} />
-          </button>
+          </button> */}
+          <WishListButton
+            product_id={item.id}
+            product_details={true}
+            wishlist={wishlist}
+          />
         </div>
         <div className="flex-1 flex justify-center items-center">
-          <Link href={`/products/${item.handle}`} className="  w-[200px] my-3 ">
+          <Link href={`/products/${item.handle}`} className="  w-[170px] my-3 ">
             <Image
               src={`${item && item.thumbnail}`}
-              width={200}
-              height={200}
+              width={170}
+              height={170}
               objectFit="cover"
               alt={item.title}
               className={`w-[200px] md:w-[200px] `}

@@ -7,6 +7,7 @@ import {
   getRegion,
   listRegions,
   retrievePricedProductById,
+  getCustomer,
 } from "@lib/data"
 import { Region } from "@medusajs/medusa"
 import ProductTemplate from "@modules/products/templates"
@@ -84,6 +85,7 @@ const getPricedProductByHandle = async (handle: string, region: Region) => {
 }
 
 export default async function ProductPage({ params }: Props) {
+  const customer = await getCustomer()
   const region = await getRegion(params.countryCode)
 
   if (!region) {
@@ -101,6 +103,7 @@ export default async function ProductPage({ params }: Props) {
       product={pricedProduct}
       region={region}
       countryCode={params.countryCode}
+      wishlist={customer?.metadata.wich_list as Array<string>}
     />
   )
 }

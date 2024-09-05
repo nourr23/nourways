@@ -11,15 +11,18 @@ import PreviewPrice from "./price"
 import Image from "next/image"
 import { CiHeart } from "react-icons/ci"
 import ProductActions from "../product-actions"
+import { WishListButton } from "../wishlist-button"
 
 export default async function ProductPreview({
   productPreview,
   isFeatured,
   region,
+  wishlist,
 }: {
   productPreview: any
   isFeatured?: boolean
   region: Region
+  wishlist?: Array<string>
 }) {
   const pricedProduct = await retrievePricedProductById({
     id: productPreview.id,
@@ -35,12 +38,15 @@ export default async function ProductPreview({
     region,
   })
 
+  // console.log("productPreview", productPreview)
+
   return (
     <div className=" mx-auto md:mx-0 max-w-[280px] min-w-[214px]">
-      <LocalizedClientLink
+      {/* <LocalizedClientLink
         href={`/products/${productPreview.handle}`}
         className="group w-full"
-      >
+      > */}
+      <div>
         <div
           data-testid="product-wrapper"
           className=" sm:h-[218px] w-full justify-between bg-grey-0 rounded-3xl flex flex-col items-center px-3 py-4 gap-2 overflow-hidden"
@@ -53,21 +59,29 @@ export default async function ProductPreview({
                 </div>
               )}
             </div>
-            <button className=" outline-none border-none h-[34px] w-[34px] flex justify-center items-center bg-white rounded-[19px]">
-              <CiHeart color="#2d5356" size={30} />
-            </button>
+
+            <WishListButton
+              product_id={productPreview.id}
+              wishlist={wishlist}
+            />
           </div>
-          <Image
-            src={`${productPreview.thumbnail}`}
-            width={130}
-            height={140}
-            objectFit="cover"
-            alt={`${productPreview.thumbnail}`}
-            className=" group-hover:scale-110 ease-in-out duration-450"
-          />
+          <LocalizedClientLink
+            href={`/products/${productPreview.handle}`}
+            className="group "
+          >
+            <Image
+              src={`${productPreview.thumbnail}`}
+              width={130}
+              height={140}
+              objectFit="cover"
+              alt={`${productPreview.thumbnail}`}
+              className=" group-hover:scale-110 ease-in-out duration-450"
+            />
+          </LocalizedClientLink>
+
           <div className="flex txt-compact-medium mt-4 justify-between"></div>
         </div>
-      </LocalizedClientLink>
+      </div>
       <div className="flex mt-3 justify-between w-full items-center">
         <div className=" h-full flex flex-col justify-between">
           <Text

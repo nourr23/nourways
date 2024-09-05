@@ -1,4 +1,4 @@
-import { getCategoryByHandle } from "@lib/data"
+import { getCategoryByHandle, getCustomer } from "@lib/data"
 import { Product, Region } from "@medusajs/medusa"
 import { cache } from "react"
 import { ProductCategoryWithChildren } from "types/global"
@@ -62,6 +62,7 @@ export default async function TrendingProducts({
   countryCode: string
   region: Region
 }) {
+  const customer = await getCustomer()
   const trendingCategories = await getCategoriesWithProducts(
     countryCode,
     handle
@@ -92,6 +93,7 @@ export default async function TrendingProducts({
           countryCode={countryCode}
           region={region}
           trendingCategories={trendingCategories}
+          wishlist={customer?.metadata.wich_list as Array<string>}
         />
       </div>
     </div>
