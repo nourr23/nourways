@@ -3,7 +3,6 @@ import { manageWishlist } from "@modules/account/actions"
 import { Region } from "@medusajs/medusa"
 import { CiHeart } from "react-icons/ci"
 import { IoIosHeart } from "react-icons/io"
-import { Toast, Toaster } from "@medusajs/ui"
 import { useState } from "react"
 
 export const WishListButton = ({
@@ -15,7 +14,7 @@ export const WishListButton = ({
   wishlist?: Array<string>
   product_details?: boolean
 }) => {
-  const [opseToast, setOpenToast] = useState(true)
+  const [openToast, setOpenToast] = useState(false)
   //   console.log("wishlist", wishlist, product_id)
   const addToWishList = async () => {
     if (wishlist) {
@@ -32,13 +31,29 @@ export const WishListButton = ({
       await manageWishlist(wishlist)
     }
   }
+  const toggleToast = () => {
+    // Toast.("info", { title: "test", description: "tes test" })
+    setOpenToast(true)
+    setTimeout(() => {
+      setOpenToast(false)
+    }, 3000)
+  }
+  const Toast = () => {
+    return (
+      <div className=" fixed bottom-3 xsmall:right-4 right-[5%] xsmall:w-auto w-[90%] mx-auto xsmall:mx-0 rounded-lg bg-white shadow shadow-black/40 px-3 py-4 text-secondary-500 text-base">
+        You need to connect so you can add products to wishlist
+      </div>
+    )
+  }
   return (
     <>
-      {opseToast && <Toaster />}
+      {openToast && <Toast />}
       <button
         //   disabled={!wishlist}
         onClick={
-          wishlist && wishlist.indexOf(product_id) > -1
+          !wishlist
+            ? () => toggleToast()
+            : wishlist && wishlist.indexOf(product_id) > -1
             ? () => removeFromwishList()
             : () => addToWishList()
         }
