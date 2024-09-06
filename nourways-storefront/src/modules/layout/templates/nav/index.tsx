@@ -68,22 +68,20 @@ export default async function Nav() {
 
               <LocalizedClientLink
                 className="hover:text-ui-fg-base text-white flex items-center"
-                href="/"
+                href="/account/wish-list"
                 data-testid="nav-favorite-link"
               >
-                <button>
-                  <FaRegHeart
-                    color="white"
-                    className=" text-[19px] lg:text-[25px]"
-                  />
-                </button>
+                <FaRegHeart
+                  color="white"
+                  className=" text-[19px] lg:text-[25px]"
+                />
               </LocalizedClientLink>
 
               <div className="hidden sm:flex">
                 <Suspense
                   fallback={
                     <LocalizedClientLink
-                      className="hover:text-ui-fg-base text-white flex gap-2 relative flex items-center"
+                      className="hover:text-ui-fg-base text-white flex gap-2 relative  items-center"
                       href="/cart"
                       data-testid="nav-cart-link"
                     >
@@ -99,7 +97,7 @@ export default async function Nav() {
                 </Suspense>
               </div>
               <LocalizedClientLink
-                className="hover:text-ui-fg-base text-white hidden sm:flex items-center"
+                className="hover:text-ui-fg-base text-white flex items-center"
                 href="/account"
                 data-testid="nav-account-link"
               >

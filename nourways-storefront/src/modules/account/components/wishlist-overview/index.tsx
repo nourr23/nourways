@@ -13,14 +13,16 @@ const WishlistOverview = async ({
   console.log("products from wishlist", products)
   return (
     <div className=" gap-y-3 flex flex-col">
-      {products?.map((item: any) => (
-        <WishlistCard
-          wishlist={wishlist}
-          product={item}
-          key={item.id}
-          region={region}
-        />
-      ))}
+      {wishlist &&
+        wishlist.length > 0 &&
+        products?.map((item: any) => (
+          <WishlistCard
+            wishlist={wishlist}
+            product={item}
+            key={item.id}
+            region={region}
+          />
+        ))}
     </div>
   )
 }
