@@ -13,6 +13,7 @@ import Link from "next/link"
 import { getCategoryByHandle } from "@lib/data"
 import { FilterContainer } from "@modules/common/components/filter-container"
 import { CiFilter } from "react-icons/ci"
+import { Header } from "@modules/common/components/header"
 
 const getCategoriesParent = cache(
   async (handle: any): Promise<ProductCategoryWithChildren[] | null> => {
@@ -58,12 +59,7 @@ export default async function CategoryTemplate({
       className="flex flex-col px-0 small:items-start py-6 "
       data-testid="category-container"
     >
-      <div className="w-full bg-primary-500 relative h-[300px] flex justify-center items-center overflow-hidden">
-        <div className=" text-white font-bold text-3xl capitalize">
-          {category.name}
-        </div>
-        <div className="absolute h-full w-full slider-bg opacity-[0.03] "></div>
-      </div>
+      <Header title={category.name} />
 
       <div className="py-10 px-3 w-full flex justify-center ">
         <div className=" w-full max-w-[1160px]">
