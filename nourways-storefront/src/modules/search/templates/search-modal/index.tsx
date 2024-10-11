@@ -1,16 +1,17 @@
 "use client"
 
-import { InstantSearch } from "react-instantsearch-hooks-web"
 import { useRouter } from "next/navigation"
-import { MagnifyingGlassMini } from "@medusajs/icons"
+import { useEffect, useRef, useState } from "react"
+import { IoIosSearch } from "react-icons/io"
+import { getProductsSearch } from "@lib/util/search-product"
+import { debounce } from "lodash"
+import { SearchResultCard } from "@modules/search/components/search-result-card"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { Button } from "@medusajs/ui"
 
-import { SEARCH_INDEX_NAME, searchClient } from "@lib/search-client"
-import Hit from "@modules/search/components/hit"
-import Hits from "@modules/search/components/hits"
-import SearchBox from "@modules/search/components/search-box"
-import { useEffect, useRef } from "react"
-
-export default function SearchModal() {
+export default function SearchModal({ countryCode }: { countryCode: string }) {
+  const [value, setValue] = useState<string>("")
+  const [products, setProduct] = useState<Array<any>>([])
   const router = useRouter()
   const searchRef = useRef(null)
 
@@ -54,28 +55,66 @@ export default function SearchModal() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    if (value.length > 2) {
+      setProduct([])
+      getProducts({ q: value, limit: 6 })
+    }
+    if (value.length === 0) {
+      setProduct([])
+    }
+  }, [value])
+
+  const getProducts = async (queryParams: any) => {
+    await getProductsSearch({
+      queryParams,
+      countryCode,
+    }).then(({ response }) => setProduct([...response.products]))
+  }
   return (
     <div className="relative z-[75]">
       <div className="fixed inset-0 bg-opacity-75 backdrop-blur-md opacity-100 h-screen w-screen" />
-      <div className="fixed inset-0 px-5 sm:p-0" ref={searchRef}>
-        <div className="flex flex-col justify-start w-full h-fit transform p-5 items-center text-left align-middle transition-all max-h-[75vh] bg-transparent shadow-none">
-          <InstantSearch
-            indexName={SEARCH_INDEX_NAME}
-            searchClient={searchClient}
-          >
-            <div
-              className="flex absolute flex-col h-fit w-full sm:w-fit"
-              data-testid="search-modal-container"
-            >
-              <div className="w-full flex items-center gap-x-2 p-4 bg-[rgba(3,7,18,0.5)] text-ui-fg-on-color backdrop-blur-2xl rounded-rounded">
-                <MagnifyingGlassMini />
-                <SearchBox />
-              </div>
-              <div className="flex-1 mt-6">
-                <Hits hitComponent={Hit} />
-              </div>
+      <div className="fixed inset-0 px-2 sm:p-0" ref={searchRef}>
+        <div className=" flex flex-col items-center w-full gap-y-8 pt-6">
+          <div className=" items-center flex relative overflow-hidden h-12 border-neutral-500 border w-full max-w-[460px] bg-black/30 rounded-lg">
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              className=" w-full h-full absolute left-0 top-0 pl-3 bg-transparent text-white outline-none"
+              placeholder="Search"
+            />
+            <div className="absolute right-0 px-3 active:scale-75 cursor-pointer">
+              <IoIosSearch color="white" size={29} />
             </div>
-          </InstantSearch>
+          </div>
+
+          {products.length > 0 && (
+            <div className=" shadow-lg shadow-black/30 bg-white rounded p-1 md:p-3 w-full max-w-[460px]">
+              <div className="  gap-1  grid grid-cols-2">
+                {products.map((product: any) => (
+                  <SearchResultCard key={product.id} product={product} />
+                ))}
+              </div>
+              {products.length > 1 && (
+                <div className="mt-3 w-full flex">
+                  <LocalizedClientLink
+                    href={`/results/${value}`}
+                    className=" w-full"
+                    passHref
+                  >
+                    <Button
+                      className="w-full bg-primary-500 hover:bg-primary-500 shadow-none !border-none !outline-none rounded-full"
+                      size="large"
+                      data-testid="go-to-cart-button"
+                    >
+                      Plus de résultats
+                    </Button>
+                  </LocalizedClientLink>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

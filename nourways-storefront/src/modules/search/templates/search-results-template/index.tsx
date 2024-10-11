@@ -5,10 +5,13 @@ import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { Header } from "@modules/common/components/header"
+import { Suspense } from "react"
+import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
+import { FilterContainer } from "@modules/common/components/filter-container"
 
 type SearchResultsTemplateProps = {
   query: string
-  ids: string[]
   sortBy?: SortOptions
   page?: string
   countryCode: string
@@ -16,7 +19,6 @@ type SearchResultsTemplateProps = {
 
 const SearchResultsTemplate = ({
   query,
-  ids,
   sortBy,
   page,
   countryCode,
@@ -25,8 +27,39 @@ const SearchResultsTemplate = ({
 
   return (
     <>
-      <div className="flex justify-between border-b w-full py-6 px-8 small:px-14 items-center">
-        <div className="flex flex-col items-start">
+      <div className="flex flex-col px-0 small:items-start py-6 ">
+        <Header title="Résultats" />
+
+        <div className="py-10 px-3 w-full flex justify-center ">
+          <div className=" w-full max-w-[1160px]">
+            <div className="flex w-full gap-x-6">
+              <div className=" hidden md:block">
+                <div className=" text-neutral-900 capitalize text-2xl">
+                  option de filtre
+                </div>
+                <div className="mt-5">
+                  <FilterContainer title={"Trier Par"}>
+                    <RefinementList
+                      sortBy={sortBy || "created_at"}
+                      data-testid="sort-by-container"
+                    />
+                  </FilterContainer>
+                </div>
+              </div>
+
+              <Suspense fallback={<SkeletonProductGrid />}>
+                <PaginatedProducts
+                  q={query}
+                  sortBy={sortBy || "created_at"}
+                  page={pageNumber}
+                  countryCode={countryCode}
+                />
+              </Suspense>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="flex flex-col items-start">
           <Text className="text-ui-fg-muted">Search Results for:</Text>
           <Heading>
             {decodeURI(query)} ({ids.length})
@@ -54,7 +87,7 @@ const SearchResultsTemplate = ({
           </>
         ) : (
           <Text className="ml-8 small:ml-14 mt-3">No results.</Text>
-        )}
+        )} */}
       </div>
     </>
   )
