@@ -24,7 +24,7 @@ const StoreTemplate = ({
       className="flex flex-col px-0 small:items-start py-6 "
       data-testid="category-container"
     >
-      <Header title="Produits"  />
+      <Header title="Produits" />
 
       <div className="py-10 px-3 w-full flex justify-center ">
         <div className=" w-full max-w-[1160px]">
